@@ -5,19 +5,25 @@ import Movie from './Movie';
 
 const MovieList = (props) => {
     const movies = props.movies.map((movie) => {
-        return <Movie title={movie.title} />;
+        return <Movie
+                 key={movie.id}
+                 id={movie.id}
+                 title={movie.title}
+                 onSelect={props.onSelect}
+               />;
     });
 
     return (
         <div>
-        <h3>Found {movies.length} item{movies.length==1?'':'s'}</h3>
+        <h3>Found {movies.length} item{movies.length===1?'':'s'}</h3>
           <ul>{movies}</ul>
         </div>
     );
 };
 
 MovieList.propTypes = {
-    movies: PropTypes.array
+    movies: PropTypes.array,
+    onSelect: PropTypes.func
 };
 
 export default MovieList;
