@@ -79,6 +79,9 @@ Current flow is rigid and limiting, it would be good to have more options
 * Search for movie, based on current location (30km radius)
 * Add drop-downs and what-not for better customization
   * Maybe user profile instead
+* Custom search/filter component
+  * If blank, show movies for place
+  * When movies are present, filter them
 
 # Instruction
 
