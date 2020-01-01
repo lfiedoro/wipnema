@@ -4,15 +4,40 @@ Work In Progress ciNEMA app. Concept for showtime booking app.
 
 # Basic design
 
-graph CN;
-    A[App]-->SB[Search Bar];
-    A-->ML[Movie List];
-    A-->SL[Showtime List];
-    A-->P[Places];
-    ML-->M[Movie];
-    SL-->S[Showtimes];
-    P-->R[Reservation]
+``` text
+                     +-------+
+                     |       |
+         +-----------+  App  +-----------------------------+
+         |           |       |                             |
+         |           +-------+                             |
+         |                                                 |
+         |                                    +------------+-----------------+
+         |                                    |                              |
+         |                       +------------+ State (depends on selection) +------+
+         |                       |            |                              |      |
+         |                       |            +-------------+----------------+      |
+         |                       |                          |                       |
+         |                       |                          |                       |
+         |                       |City Selected             |Movie Selected         |Showtime Selected
+         |                       |                          |                       |
++--------+-----+        +--------v----+          +----------v-----+         +-------+--------+
+|              |        |             |          |                |         |                |
+|  Search Bar  |        | Movie List  |          | Showtime List  |         |  Theater Sits  |
+|              |        |             |          |                |         |                |
++--------------+        +--------+----+          +----------+-----+         +-------+--------+
+                                 |                          |                       |
+                                 |                          |                       |
+                                 |                          |                       |
+                             +---+----+              +------+-----+         +-------+-------+
+                             |        |              |            |         |               |
+                             | Movie  |              |  Showtime  |         |  Reservation  |
+                             |        |              |            |         |               |
+                             +--------+              +------------+         +---------------+
 
+```
+
+``` text
+| Component     | Description                                     |
 |---------------|-------------------------------------------------|
 | Search Bar    | looks for a City in Poland.                     |
 | Movie List    | Shows list of movies for given city.            |
@@ -20,7 +45,7 @@ graph CN;
 | Showtime List | List of all avaliable showtimes, *clickable*    |
 | Places        | Grid of sits for specific showtime, *clickable* |
 | Reservation   | Pop-up-like dialog with reservation fields      |
-|---------------|-------------------------------------------------|
+```
 
 # State and Flow
 
