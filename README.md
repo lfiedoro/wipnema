@@ -12,25 +12,25 @@ Work In Progress ciNEMA app. Concept for showtime booking app.
          |           +-------+                             |
          |                                                 |
          |                                    +------------+-----------------+
-         |                                    |                              |
-         |                       +------------+ State (depends on selection) +------+
-         |                       |            |                              |      |
-         |                       |            +-------------+----------------+      |
-         |                       |                          |                       |
-         |                       |                          |                       |
-         |                       |City Selected             |Movie Selected         |Showtime Selected
-         |                       |                          |                       |
-+--------+-----+        +--------v----+          +----------v-----+         +-------+--------+
-|              |        |             |          |                |         |                |
-|  Search Bar  |        | Movie List  |          | Showtime List  |         |  Theater Sits  |
-|              |        |             |          |                |         |                |
-+--------------+        +--------+----+          +----------+-----+         +-------+--------+
-                                 |                          |                       |
-                                 |                          |                       |
-                                 |                          |                       |
-                             +---+----+              +------+-----+         +-------+-------+
-                             |        |              |            |         |               |
-                             | Movie  |              |  Showtime  |         |  Reservation  |
+         |                                    |                              +--------------------------+
+         |                       +------------+ State (depends on selection) +------+                   |
+         |                       |            |                              |      |                   |
+         |                       |            +-------------+----------------+      |                   |
+         |                       |                          |                       |                   |
+         |                       |                          |                       |                   |
+         |                       |City Selected             |Movie Selected         |Showtime Selected  |
+         |                       |                          |                       |                   |
++--------+-----+        +--------v----+          +----------v-----+         +-------+--------+          |
+|              |        |             |          |                |         |                |          |
+|  Search Bar  |        | Movie List  |          | Showtime List  |         |  Theater Sits  |          |
+|              |        |             |          |                |         |                |          |
++--------------+        +--------+----+          +----------+-----+         +----------------+          |
+                                 |                          |                                           |
+                                 |                          |                                           |
+                                 |                          |                                           |
+                             +---+----+              +------+-----+         +---------------+           |
+                             |        |              |            |         |               |           |
+                             | Movie  |              |  Showtime  |         |  Reservation  +-----------+
                              |        |              |            |         |               |
                              +--------+              +------------+         +---------------+
 
@@ -42,9 +42,10 @@ Work In Progress ciNEMA app. Concept for showtime booking app.
 | Search Bar    | looks for a City in Poland.                     |
 | Movie List    | Shows list of movies for given city.            |
 | Movie         | Particular title, *clickable*                   |
-| Showtime List | List of all avaliable showtimes, *clickable*    |
-| Places        | Grid of sits for specific showtime, *clickable* |
-| Reservation   | Pop-up-like dialog with reservation fields      |
+| Showtime List | List of all avaliable showtimes                 |
+| Showtime      | Particular showtime, *clickable*                |
+| Sits          | Grid of sits for specific showtime, *clickable* |
+| Reservation   | View with reservation fields                    |
 ```
 
 # State and Flow
@@ -53,23 +54,27 @@ Most relevant state is kept in App component. This component, based on this stat
 
 
 ```javascript
-state = {
-    cities: '',
-    movies: [],
-    selectedMovie: '',
-    showtimes: []
-}
+    state = {
+        cities: '',
+        movies: [],
+        selectedMovie: '',
+        showtimes: [],
+        showtimeId: '',
+        showtimeDate: '',
+        sits: [],
+        // Viewing states
+        pageView: 0b0001
 ```
 
 At start there is only search bar. Once user hits enter, Movies are shown. Selecting movie, unmounts its component and loads Showtimes.
+pageView is in binary format, each bit corresponds to certain view.
 
 # TODO
 
 ## Required
 
 Those things need to be added to the project
-* Theater sits component (available/free places)
-* Reservation
+* Finish Reservation form
 * CSS
 * Redux
 
