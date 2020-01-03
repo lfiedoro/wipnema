@@ -1,10 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Showtime from './Showtime';
+
 const ShowtimeList = (props) => {
-    console.log(props);
     const showtimes = props.showtimes.map((showtime) => {
-        return <li key={showtime.id}>{showtime.start_at}</li>;
+        return <Showtime
+                 key={showtime.id}
+                 id={showtime.id}
+                 date={showtime.start_at}
+                 title={props.showName}
+                 onSelect={props.onSelect}
+               />;
     });
 
     return (
@@ -18,7 +25,8 @@ const ShowtimeList = (props) => {
 
 ShowtimeList.propTypes = {
     showtimes: PropTypes.array,
-    showName: PropTypes.string
+    showName: PropTypes.string,
+    onSelect: PropTypes.func
 };
 
 export default ShowtimeList;
