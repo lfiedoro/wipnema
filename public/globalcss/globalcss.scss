@@ -39,6 +39,15 @@ body {
   }
 }
 
+.gradientText {
+  display: block;
+  font-weight: bold;
+  font-size: 25pt;
+  background: linear-gradient(to right, $theme-blue-accent 0%, $theme-green-accent 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 %flex-center {
   justify-content: center;
   align-items: flex-start;

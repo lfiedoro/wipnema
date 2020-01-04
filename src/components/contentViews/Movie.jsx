@@ -26,19 +26,19 @@ class Movie extends React.Component {
     };
 
     moviePosterChecker = () => {
-        return (!this.props.poster) ? '/noposter.jpg' : this.props.poster;
+        return (!this.props.poster) ? '/img/noposter.jpg' : this.props.poster;
     };
 
     render() {
         return (
             <div style={{margin: '20px auto'}}>
                 <Card>
-                    <CardActionArea>
-                        <CardMedia onClick={this.onMovieSelect}
-                                   component="img"
-                                   image={this.moviePosterChecker()}
-                                   title={this.props.title}
-                                   height="100"
+                    <CardActionArea onClick={this.onMovieSelect}>
+                        <CardMedia
+                            component="img"
+                            image={this.moviePosterChecker()}
+                            title={this.props.title}
+                            height="100"
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="h2">
@@ -50,7 +50,8 @@ class Movie extends React.Component {
                         <Button
                             onClick={this.onMovieSelect}
                             size="small"
-                            color="secondary">
+                            color="secondary"
+                            className='gradientText'>
                             Check showtimes
                         </Button>
 
