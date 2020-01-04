@@ -14,17 +14,26 @@ const MovieList = (props) => {
         />;
     });
 
-    const startImageStyle = {
-        maxWidth: '80%',
-        margin: '20px auto'
+
+
+    const moviesFoundCount = () => {
+        if (movies.length) {
+            return (
+                <h3>Found {movies.length} item{movies.length === 1 ? '' : 's'}</h3>
+            )
+        }
     };
 
     const startSearch = () => {
         if (!movies.length) {
             return (
                 <div style={{textAlign: 'center'}}>
-                    <img src="/img/seat.svg" style={startImageStyle}/>
-                    <h2 style={{fontSize: '20pt'}}>
+                    <img
+                        src="/img/seat.svg"
+                        className="startImage"
+                        alt="Search a city to look for movies"
+                    />
+                    <h2 style={{fontSize: '1.5rem'}}>
                         Select a city and reserve
                         <span className='gradientText'>a seat today :)</span>
                     </h2>
@@ -35,9 +44,9 @@ const MovieList = (props) => {
 
     return (
         <div>
-            <h3>Found {movies.length} item{movies.length === 1 ? '' : 's'}</h3>
+            {moviesFoundCount()}
             {startSearch()}
-            <ul>{movies}</ul>
+            {movies}
         </div>
     );
 };

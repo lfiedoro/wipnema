@@ -35,6 +35,7 @@ class Content extends Component {
                     <ShowtimeList
                         showtimes={this.props.showtimes}
                         showName={this.props.selectedMovie}
+                        poster={this.props.poster}
                         onSelect={this.props.onShowtimeSelect}
                     /> : null}
 

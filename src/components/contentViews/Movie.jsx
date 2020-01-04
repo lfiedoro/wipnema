@@ -21,8 +21,8 @@ class Movie extends React.Component {
         this.setState({
             movieName: this.props.title,
             movieId: this.props.id,
-            poster: this.props.poster
-        }, () => this.props.onSelect(this.state.movieId, this.state.movieName));
+            poster: this.moviePosterChecker()
+        }, () => this.props.onSelect(this.state.movieId, this.state.movieName, this.moviePosterChecker()));
     };
 
     moviePosterChecker = () => {
@@ -40,13 +40,17 @@ class Movie extends React.Component {
                             title={this.props.title}
                             height="100"
                         />
-                        <CardContent>
+                        <CardContent
+                            classes={{root: 'cardBg'}}
+                        >
                             <Typography gutterBottom variant="h5" component="h2">
                                 {this.props.title}
                             </Typography>
                         </CardContent>
                     </CardActionArea>
-                    <CardActions>
+                    <CardActions
+                        classes={{root: 'cardBg movies'}}
+                    >
                         <Button
                             onClick={this.onMovieSelect}
                             size="small"

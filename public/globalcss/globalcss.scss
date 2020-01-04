@@ -20,29 +20,44 @@ html, body {
 body {
   background: $theme-dark;
   color: $white;
+  font-size: 14pt;
   font-family: Roboto, sans-serif;
 }
+
+h1, h2, h3, h4, h5 {
+  @include no-select;
+}
+
 
 .shader {
   @include gradient($theme-dark, rgba(0, 0, 0, 0), vertical);
   width: 100%;
-  height: 30px;
+  height: 40px;
   position: absolute;
   @include position(0, 0);
   z-index: 3;
   pointer-events: none;
 
   &.bottom {
-    @include positionb(-2px, 0);
+    @include positionb(-5px, 0);
     @include gradient(rgba(0, 0, 0, 0), $theme-dark, vertical);
     top: unset;
+  }
+
+  &.poster {
+    @include positionb(0, 0);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    box-sizing: border-box;
   }
 }
 
 .gradientText {
   display: block;
   font-weight: bold;
-  font-size: 25pt;
+  font-size: 2rem;
   background: linear-gradient(to right, $theme-blue-accent 0%, $theme-green-accent 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -67,21 +82,27 @@ body {
     height: 15%;
     min-height: 90px;
     margin: 0 auto;
-    padding: 20px 10px;
+    padding: 20px 20px;
     box-sizing: border-box;
-    background: $theme-gray;
+    @include gradient($theme-dark, $theme-gray, vertical);
     display: flex;
     flex-flow: column nowrap;
     border-bottom: $theme-blue-accent solid 2px;
     @extend %flex-center;
+    width: 100vw;
 
-    @include breakpoint-mobile {
-      width: 100vw;
+    > div {
+      @include breakpoint-mobile {
+        width: 100vw;
+      }
+      width: 70%;
+      margin: 0 auto;
     }
+
 
     h1 {
       color: $theme-blue-accent;
-      font-size: 20pt;
+      font-size: 1.5rem;
 
       i {
         position: relative;
@@ -94,7 +115,7 @@ body {
     }
 
     h2 {
-      font-size: 10pt;
+      font-size: .7rem;
       color: $theme-blue-darker;
     }
 
@@ -104,7 +125,11 @@ body {
     position: relative;
     border-bottom: $theme-blue-accent solid 2px;
     height: 85%;
-
+    margin: 0 auto;
+    width: 100%;
+    @include breakpoint-desktop {
+      width: 70%;
+    }
 
     main {
       position: relative;
@@ -113,8 +138,67 @@ body {
       box-sizing: border-box;
       height: 100%;
 
+      .startImage {
+        margin: 20px auto;
+        @include breakpoint-mobile {
+          width: 80%;
+        }
+        width: 40%;
+      }
+
+      #root, #root > div {
+        position: relative;
+        height: 100%;
+      }
+
+      .cardBg {
+        background: $theme-gray;
+        flex-flow: column nowrap;
+
+        &.movies {
+          flex-flow: unset;
+        }
+      }
+
+      .cardBgHeader {
+        background: $theme-blue-darker;
+      }
+
+      .dayCard {
+        display: flex;
+        flex-flow: row nowrap;
+        margin-bottom: 10px;
+
+        div {
+          display: flex;
+          @extend %flex-center;
+          box-sizing: border-box;
+
+          &.day {
+            font-size: 3rem;
+            color: $theme-green-accent;
+            font-weight: bold;
+            padding-right: 10px;
+            border-right: $theme-green-accent solid 1px;
+            margin-right: 5px;
+          }
+
+          &.hours {
+            justify-content: flex-start;
+            flex-flow: row wrap;
+
+            > div {
+              margin: 4px;
+              align-items: center;
+            }
+          }
+        }
+      }
+
       .maxHeight {
-        max-height: 72vh;
+        max-height: 75vh;
+        position: relative;
+        top: 3px;
       }
 
       @include breakpoint-mobile {

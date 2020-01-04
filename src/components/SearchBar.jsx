@@ -18,6 +18,7 @@ class SearchBar extends React.Component {
                     <TextField
                         variant="filled"
                         color={'secondary'}
+                        autoFocus={true}
                         fullWidth={true}
                         InputProps={{
                             startAdornment: (

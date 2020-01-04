@@ -14,6 +14,7 @@ class App extends React.Component {
         showtimes: [],
         showtimeId: '',
         showtimeDate: '',
+        poster: '',
         sits: [
             [0, 0, 0, 0, 0],
             [0, 1, 0, 1, 0],
@@ -33,7 +34,7 @@ class App extends React.Component {
         alignItems: 'center',
         flexFlow: 'column nowrap',
         width: '100%',
-        height: '100%'
+        height: '90%'
     };
 
 
@@ -69,7 +70,7 @@ class App extends React.Component {
         });
     };
 
-    onMovieSelect = async (movieId, movieName) => {
+    onMovieSelect = async (movieId, movieName, poster) => {
         this.setState({
             pageView: 0b0000
         });
@@ -85,18 +86,12 @@ class App extends React.Component {
         this.setState({
             selectedMovie: movieName,
             showtimes: getShowtimes.data.showtimes,
+            poster: poster,
             pageView: 0b0010
         });
     };
 
     onShowtimeSelect = (showtimeId, showtimeDate) => {
-        // const getShowtimes = await showtimes.get('/showtimes', {
-        //     params: {
-        //         countries: 'pl',
-        //         city_ids: this.state.cities,
-        //         movie_id: showtimeId
-        //     }
-        // });
         this.setState({
             showtimeId,
             showtimeDate,
@@ -125,6 +120,7 @@ class App extends React.Component {
                         sits={this.state.sits}
                         showtimeDate={this.state.showtimeDate}
                         showtimeId={this.state.showtimeId}
+                        poster={this.state.poster}
                         onMovieSelect={this.onMovieSelect}
                         onShowtimeSelect={this.onShowtimeSelect}
                         onSitSelect={this.onSitSelect}
