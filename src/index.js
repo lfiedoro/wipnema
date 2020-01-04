@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App';
+import 'typeface-roboto';
+import ThemeWrapper from "./components/material/ThemeWrapper";
 
 ReactDOM.render(
-  <App />,
-  document.querySelector('#root')
+    <ThemeWrapper/>,
+    document.querySelector('#root')
 );

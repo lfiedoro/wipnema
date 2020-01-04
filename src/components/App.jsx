@@ -1,13 +1,8 @@
 import React from 'react';
-
 import showtimes from '../api/showtimes';
-import reservation from '../api/reservation';
 
 import SearchBar from './SearchBar';
-import MovieList from './MovieList';
-import ShowtimeList from './ShowtimeList';
-import Sits from './Sits';
-import Reservation from './Reservation';
+import Content from "./Content";
 
 // "https://api.internationalshowtimes.com/v4/cities/?location=pl&query=gda"
 
@@ -28,7 +23,19 @@ class App extends React.Component {
         ],
         // Viewing states
         pageView: 0b0001
-    }
+    };
+
+    positionStyle = {
+        position: 'relative',
+        display: 'flex',
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'center',
+        flexFlow: 'column nowrap',
+        width: '100%',
+        height: '100%'
+    };
+
 
     onSearchSubmit = async term => {
         this.setState({
@@ -60,7 +67,7 @@ class App extends React.Component {
             cities: citiesIds,
             pageView: 0b0001
         });
-    }
+    };
 
     onMovieSelect = async (movieId, movieName) => {
         this.setState({
@@ -80,7 +87,7 @@ class App extends React.Component {
             showtimes: getShowtimes.data.showtimes,
             pageView: 0b0010
         });
-    }
+    };
 
     onShowtimeSelect = (showtimeId, showtimeDate) => {
         // const getShowtimes = await showtimes.get('/showtimes', {
@@ -95,49 +102,35 @@ class App extends React.Component {
             showtimeDate,
             pageView: 0b0100
         }, () => console.log(this.state));
-    }
+    };
 
     onSitSelect = (row, column) => {
         this.setState({
             pageView: 0b1000
         });
-    }
+    };
 
 
     render() {
         return (
             <div>
-              <SearchBar onSubmit={this.onSearchSubmit} />
-              {!this.state.pageView ?
-               <p>
-               Loading...
-               </p> : null}
-
-              {this.state.pageView & 0b0001 ?
-               <MovieList
-                 movies={this.state.movies}
-                 onSelect={this.onMovieSelect}
-               /> : null}
-
-              {this.state.pageView & 0b0010 ?
-               <ShowtimeList
-                 showtimes={this.state.showtimes}
-                 showName={this.state.selectedMovie}
-                 onSelect={this.onShowtimeSelect}
-               /> : null}
-
-              {this.state.pageView & 0b0100 ?
-               <Sits
-                 sits={this.state.sits}
-                 onSelect={this.onSitSelect}
-               /> : null}
-
-              {this.state.pageView & 0b1000 ?
-               <Reservation
-                 title={this.state.selectedMovie}
-                 date={this.state.showtimeDate}
-                 id={this.state.showtimeId}
-               /> : null}
+                <SearchBar onSubmit={this.onSearchSubmit}/>
+                <div style={this.positionStyle}>
+                    <div className="shader"/>
+                    <Content
+                        pageView={this.state.pageView}
+                        movies={this.state.movies}
+                        showtimes={this.state.showtimes}
+                        selectedMovie={this.state.selectedMovie}
+                        sits={this.state.sits}
+                        showtimeDate={this.state.showtimeDate}
+                        showtimeId={this.state.showtimeId}
+                        onMovieSelect={this.onMovieSelect}
+                        onShowtimeSelect={this.onShowtimeSelect}
+                        onSitSelect={this.onSitSelect}
+                    />
+                    <div className="shader bottom"/>
+                </div>
             </div>
         );
     }
