@@ -19,20 +19,14 @@ class App extends React.Component {
         showtimes: [],
         showtimeId: '',
         showtimeDate: '',
-        sits: [
-            [0, 0, 0, 0, 0],
-            [0, 1, 0, 1, 0],
-            [0, 0, 0, 0, 0],
-            [0, 1, 0, 1, 0],
-            [0, 0, 0, 0, 0],
-        ],
+        sits: [],
         // Viewing states
-        pageView: 0b0001
+        pageView: 0b00000001
     }
 
     onSearchSubmit = async term => {
         this.setState({
-            pageView: 0b0000
+            pageView: 0b01000000
         });
 
         const getCities = await showtimes.get('/cities', {
@@ -41,6 +35,15 @@ class App extends React.Component {
                 query: term
             }
         });
+
+        //If no movies found, bail out
+        if(!getCities.data.meta_info.total_count) {
+            console.log(getCities.data.meta_info.total_count);
+            this.setState({
+                pageView: 0b10000000
+            });
+            return;
+        }
 
         let toDate = new Date();
         toDate.setDate(toDate.getDate() + 7);
@@ -58,13 +61,13 @@ class App extends React.Component {
         this.setState({
             movies: getMovies.data.movies,
             cities: citiesIds,
-            pageView: 0b0001
+            pageView: 0b00000001
         });
     }
 
     onMovieSelect = async (movieId, movieName) => {
         this.setState({
-            pageView: 0b0000
+            pageView: 0b01000000
         });
 
         const getShowtimes = await showtimes.get('/showtimes', {
@@ -78,28 +81,28 @@ class App extends React.Component {
         this.setState({
             selectedMovie: movieName,
             showtimes: getShowtimes.data.showtimes,
-            pageView: 0b0010
+            pageView: 0b00000010
         });
     }
 
-    onShowtimeSelect = (showtimeId, showtimeDate) => {
-        // const getShowtimes = await showtimes.get('/showtimes', {
-        //     params: {
-        //         countries: 'pl',
-        //         city_ids: this.state.cities,
-        //         movie_id: showtimeId
-        //     }
-        // });
+    onShowtimeSelect = async (showtimeId, showtimeDate) => {
+        this.setState({
+            pageView: 0b01000000
+        });
+
+        const getSits = await reservation.get(`/bookings/${showtimeId}`);
+
         this.setState({
             showtimeId,
             showtimeDate,
-            pageView: 0b0100
+            sits: getSits.data,
+            pageView: 0b00000100
         }, () => console.log(this.state));
     }
 
     onSitSelect = (row, column) => {
         this.setState({
-            pageView: 0b1000
+            pageView: 0b00001000
         });
     }
 
@@ -108,31 +111,34 @@ class App extends React.Component {
         return (
             <div>
               <SearchBar onSubmit={this.onSearchSubmit} />
-              {!this.state.pageView ?
-               <p>
-               Loading...
-               </p> : null}
+              {this.state.pageView & 0b01000000 ?
+               <p>Loading...</p>
+               : null}
 
-              {this.state.pageView & 0b0001 ?
+              {this.state.pageView & 0b10000000 ?
+               <p>Error. Try again.</p>
+               : null}
+
+              {this.state.pageView & 0b00000001 ?
                <MovieList
                  movies={this.state.movies}
                  onSelect={this.onMovieSelect}
                /> : null}
 
-              {this.state.pageView & 0b0010 ?
+              {this.state.pageView & 0b00000010 ?
                <ShowtimeList
                  showtimes={this.state.showtimes}
                  showName={this.state.selectedMovie}
                  onSelect={this.onShowtimeSelect}
                /> : null}
 
-              {this.state.pageView & 0b0100 ?
+              {this.state.pageView & 0b00000100 ?
                <Sits
                  sits={this.state.sits}
                  onSelect={this.onSitSelect}
                /> : null}
 
-              {this.state.pageView & 0b1000 ?
+              {this.state.pageView & 0b00001000 ?
                <Reservation
                  title={this.state.selectedMovie}
                  date={this.state.showtimeDate}

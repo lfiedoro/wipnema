@@ -17,9 +17,28 @@ class Sits extends React.Component {
                       () => this.props.onSelect(this.state.row, this.state.column));
     }
 
+    createEmpty(sits) {
+        for(var x = 0; x < this.props.sits.rowLength; x++){
+            sits[x] = [];
+            for(var y = 0; y < this.props.sits.rows; y++){
+                sits[x][y] = "🪑";
+            }
+        }
+    }
+
+    markTaken(sits) {
+        for(let sit of this.props.sits.seatsTaken) {
+            sits[sit.row][sit.number] = "🐈";
+        }
+    }
+
     render() {
+        const sits = [];
+        this.createEmpty(sits);
+        this.markTaken(sits);
+
         let key = 0;
-        const sitsGrid = this.props.sits.map((row) => {
+        const sitsGrid = sits.map((row) => {
             return (
                 <tr key={key++}>
                   {row.map((s) => {
@@ -35,7 +54,7 @@ class Sits extends React.Component {
 }
 
 Sits.propTypes = {
-    sits: PropType.array,
+    sits: PropType.object,
     onSelect: PropType.func
 };
 

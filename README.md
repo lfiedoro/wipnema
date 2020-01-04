@@ -77,6 +77,8 @@ Those things need to be added to the project
 * Finish Reservation form
 * CSS
 * Redux
+* 'Back' functionality
+* Show showtimes per city not the 'blank' list
 
 ## Nice to have
 
