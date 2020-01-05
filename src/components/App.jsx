@@ -1,5 +1,7 @@
 import React from 'react';
+
 import showtimes from '../api/showtimes';
+import reservation from '../api/reservation';
 
 import SearchBar from './SearchBar';
 import Content from "./Content";
@@ -15,13 +17,7 @@ class App extends React.Component {
         showtimeId: '',
         showtimeDate: '',
         poster: '',
-        sits: [
-            [0, 0, 0, 0, 0],
-            [0, 1, 0, 1, 0],
-            [0, 0, 0, 0, 0],
-            [0, 1, 0, 1, 0],
-            [0, 0, 0, 0, 0],
-        ],
+        sits: {},
         // Viewing states
         pageView: 0b0001
     };
@@ -90,17 +86,24 @@ class App extends React.Component {
         });
     };
 
-    onShowtimeSelect = (showtimeId, showtimeDate) => {
+    onShowtimeSelect = async (showtimeId, showtimeDate) => {
+        this.setState({
+            pageView: 0b01000000
+        });
+
+        const getSits = await reservation.get(`/bookings/${showtimeId}`);
+
         this.setState({
             showtimeId,
             showtimeDate,
-            pageView: 0b0100
+            sits: getSits.data,
+            pageView: 0b00000100
         }, () => console.log(this.state));
     };
 
     onSitSelect = (row, column) => {
         this.setState({
-            pageView: 0b1000
+            pageView: 0b00001000
         });
     };
 

@@ -1,5 +1,7 @@
 import React, {Component} from "react";
+import PropType from 'prop-types';
 import CircularProgress from "@material-ui/core/CircularProgress";
+
 import MovieList from "./contentViews/MovieList";
 import ShowtimeList from "./contentViews/ShowtimeList";
 import Sits from "./contentViews/Sits";
@@ -40,23 +42,40 @@ class Content extends Component {
                         onSelect={this.props.onShowtimeSelect}
                     /> : null}
 
-                {this.props.pageView & 0b0100 ?
-                    <Sits
-                        sits={this.props.sits}
-                        onSelect={this.props.onSitSelect}
-                    /> : null}
+                  {this.props.pageView & 0b0100 ?
+                   <Sits
+                     sits={this.props.sits}
+                     onSelect={this.props.onSitSelect}
+                   /> : null}
 
-                {this.props.pageView & 0b1000 ?
-                    <Reservation
-                        title={this.props.selectedMovie}
-                        date={this.props.showtimeDate}
-                        id={this.props.showtimeId}
-                    /> : null}
+                  {this.props.pageView & 0b1000 ?
+                   <Reservation
+                     title={this.props.selectedMovie}
+                     date={this.props.showtimeDate}
+                     id={this.props.showtimeId}
+                   /> : null}
 
-            </div>
-        )
+                </div>
+               );
     }
 
 }
+
+Content.propTypes = {
+    pageView: PropType.number,
+    sits: PropType.object,
+    poster: PropType.string,
+
+    movies: PropType.array,
+    selectedMovie: PropType.string,
+
+    showtimes: PropType.array,
+    showtimeDate: PropType.string,
+    showtimeId: PropType.string,
+
+    onMovieSelect: PropType.func,
+    onShowtimeSelect: PropType.func,
+    onSitSelect: PropType.func
+};
 
 export default Content;
