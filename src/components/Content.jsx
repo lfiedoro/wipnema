@@ -27,6 +27,7 @@ class Content extends Component {
 
                 {this.props.pageView & 0b0001 ?
                     <MovieList
+                        city={this.props.city}
                         movies={this.props.movies}
                         onSelect={this.props.onMovieSelect}
                     /> : null}

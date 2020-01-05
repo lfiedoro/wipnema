@@ -23,8 +23,8 @@ const MovieList = (props) => {
         }
     };
 
-    const startSearch = () => {
-        if (!movies.length) {
+    const movieScreen = () => {
+        if (!movies.length && props.city === '') {
             return (
                 <div style={{textAlign: 'center'}}>
                     <img
@@ -38,13 +38,27 @@ const MovieList = (props) => {
                     </h2>
                 </div>
             )
+        } else if (!movies.length && props.city !== '') {
+            return (
+                <div style={{textAlign: 'center'}}>
+                    <img
+                        src="/img/no-movie.svg"
+                        className="startImage"
+                        alt="Search a city to look for movies"
+                    />
+                    <h2 style={{fontSize: '1.5rem'}}>
+                        No showtimes avaiable at this city.
+                    </h2>
+                </div>
+            )
         }
     };
+
 
     return (
         <div>
             {moviesFoundCount()}
-            {startSearch()}
+            {movieScreen()}
             <div className='moviesGrid'>
                 {movies}
             </div>
@@ -53,6 +67,7 @@ const MovieList = (props) => {
 };
 
 MovieList.propTypes = {
+    city: PropTypes.string,
     movies: PropTypes.array,
     onSelect: PropTypes.func
 };
