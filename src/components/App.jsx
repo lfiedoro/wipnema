@@ -1,5 +1,7 @@
 import React from 'react';
+
 import showtimes from '../api/showtimes';
+import reservation from '../api/reservation';
 
 import SearchBar from './SearchBar';
 import Content from "./Content";
@@ -15,7 +17,7 @@ class App extends React.Component {
         showtimeId: '',
         showtimeDate: '',
         poster: '',
-        sits: [],
+        sits: {},
         // Viewing states
         pageView: 0b00000001
     };

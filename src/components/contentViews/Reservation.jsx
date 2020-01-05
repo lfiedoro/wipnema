@@ -13,10 +13,10 @@ class Reservation extends React.Component {
               <h2>Reservation for</h2>
               <h3>Title: {this.props.title}</h3>
               <h3>Date: {this.props.date}</h3>
-              First name:<br/>
+              Name:<br/>
               <input type="text" name="name" value="" />
               <br/>
-              Last name:<br/>
+              Email:<br/>
               <input type="text" name="email" value="" />
               <br></br>
               <input type="submit" value="Submit" />
