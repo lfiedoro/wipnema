@@ -1,13 +1,8 @@
 import React from 'react';
-
 import showtimes from '../api/showtimes';
-import reservation from '../api/reservation';
 
 import SearchBar from './SearchBar';
-import MovieList from './MovieList';
-import ShowtimeList from './ShowtimeList';
-import Sits from './Sits';
-import Reservation from './Reservation';
+import Content from "./Content";
 
 // "https://api.internationalshowtimes.com/v4/cities/?location=pl&query=gda"
 
@@ -19,10 +14,22 @@ class App extends React.Component {
         showtimes: [],
         showtimeId: '',
         showtimeDate: '',
+        poster: '',
         sits: [],
         // Viewing states
         pageView: 0b00000001
-    }
+    };
+
+    positionStyle = {
+        position: 'relative',
+        display: 'flex',
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'center',
+        flexFlow: 'column nowrap',
+        width: '100%',
+        height: '90%'
+    };
 
     onSearchSubmit = async term => {
         this.setState({
@@ -63,9 +70,9 @@ class App extends React.Component {
             cities: citiesIds,
             pageView: 0b00000001
         });
-    }
+    };
 
-    onMovieSelect = async (movieId, movieName) => {
+    onMovieSelect = async (movieId, movieName, poster) => {
         this.setState({
             pageView: 0b01000000
         });
@@ -81,9 +88,10 @@ class App extends React.Component {
         this.setState({
             selectedMovie: movieName,
             showtimes: getShowtimes.data.showtimes,
-            pageView: 0b00000010
+            pageView: 0b00000010,
+            poster: poster
         });
-    }
+    };
 
     onShowtimeSelect = async (showtimeId, showtimeDate) => {
         this.setState({
@@ -98,52 +106,36 @@ class App extends React.Component {
             sits: getSits.data,
             pageView: 0b00000100
         }, () => console.log(this.state));
-    }
+    };
 
     onSitSelect = (row, column) => {
         this.setState({
             pageView: 0b00001000
         });
-    }
+    };
 
 
     render() {
         return (
             <div>
-              <SearchBar onSubmit={this.onSearchSubmit} />
-              {this.state.pageView & 0b01000000 ?
-               <p>Loading...</p>
-               : null}
-
-              {this.state.pageView & 0b10000000 ?
-               <p>Error. Try again.</p>
-               : null}
-
-              {this.state.pageView & 0b00000001 ?
-               <MovieList
-                 movies={this.state.movies}
-                 onSelect={this.onMovieSelect}
-               /> : null}
-
-              {this.state.pageView & 0b00000010 ?
-               <ShowtimeList
-                 showtimes={this.state.showtimes}
-                 showName={this.state.selectedMovie}
-                 onSelect={this.onShowtimeSelect}
-               /> : null}
-
-              {this.state.pageView & 0b00000100 ?
-               <Sits
-                 sits={this.state.sits}
-                 onSelect={this.onSitSelect}
-               /> : null}
-
-              {this.state.pageView & 0b00001000 ?
-               <Reservation
-                 title={this.state.selectedMovie}
-                 date={this.state.showtimeDate}
-                 id={this.state.showtimeId}
-               /> : null}
+                <SearchBar onSubmit={this.onSearchSubmit}/>
+                <div style={this.positionStyle}>
+                    <div className="shader"/>
+                    <Content
+                        pageView={this.state.pageView}
+                        movies={this.state.movies}
+                        showtimes={this.state.showtimes}
+                        selectedMovie={this.state.selectedMovie}
+                        sits={this.state.sits}
+                        showtimeDate={this.state.showtimeDate}
+                        showtimeId={this.state.showtimeId}
+                        poster={this.state.poster}
+                        onMovieSelect={this.onMovieSelect}
+                        onShowtimeSelect={this.onShowtimeSelect}
+                        onSitSelect={this.onSitSelect}
+                    />
+                    <div className="shader bottom"/>
+                </div>
             </div>
         );
     }
