@@ -15,7 +15,6 @@ const MovieList = (props) => {
     });
 
 
-
     const moviesFoundCount = () => {
         if (movies.length) {
             return (
@@ -46,7 +45,9 @@ const MovieList = (props) => {
         <div>
             {moviesFoundCount()}
             {startSearch()}
-            {movies}
+            <div className='moviesGrid'>
+                {movies}
+            </div>
         </div>
     );
 };

@@ -41,9 +41,9 @@ class Movie extends React.Component {
                             height="100"
                         />
                         <CardContent
-                            classes={{root: 'cardBg'}}
+                            classes={{root: 'cardBg card'}}
                         >
-                            <Typography gutterBottom variant="h5" component="h2">
+                            <Typography gutterBottom variant="h6" component="h2">
                                 {this.props.title}
                             </Typography>
                         </CardContent>
