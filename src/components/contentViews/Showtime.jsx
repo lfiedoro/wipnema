@@ -1,6 +1,7 @@
 import React from 'react';
 import PropType from 'prop-types';
 import Chip from "@material-ui/core/Chip";
+import {showTimeHourFormatted} from "./constants";
 
 class Showtime extends React.Component {
     state = {
@@ -22,16 +23,12 @@ class Showtime extends React.Component {
 
     render() {
 
-        const showtimeHour = new Date(this.props.date);
-        const showTimeHourFormatted = `${showtimeHour.getHours()}:${(showtimeHour.getMinutes().toString().length === 1)
-            ? `0${showtimeHour.getMinutes()}`
-            : showtimeHour.getMinutes()}`;
-
         return <Chip
             onClick={this.onDateSelect}
-            label={showTimeHourFormatted}
+            label={showTimeHourFormatted(this.props)}
             title={this.props.title}
             poster={this.props.poster}
+            date={this.props.date}
             disabled={this.disabled}
         />
     }

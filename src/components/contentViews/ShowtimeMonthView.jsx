@@ -4,12 +4,10 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
 import ShowTimeDateView from "./ShowTimeDateView";
+import {monthNames} from "./constants";
 
 const ShowTimeMonthView = (props) => {
 
-    const monthNames = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ];
 
     const sortedDates = props.dates.sort((a, b) => a - b);
 

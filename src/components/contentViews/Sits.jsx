@@ -1,5 +1,8 @@
 import React from 'react';
 import PropType from 'prop-types';
+import {overflowDiv, rowStyles, selectedMovieStyle} from "./styles";
+import {dateFormatted, rowLetters, showTimeHourFormatted} from "./constants";
+import Button from "@material-ui/core/Button";
 
 class Sits extends React.Component {
     state = {
@@ -7,17 +10,16 @@ class Sits extends React.Component {
         column: 0
     };
 
-    selectedMovieStyle = {
-        background: `url(${this.props.poster}) no-repeat 50% 50% / cover`,
-        borderTopLeftRadius: '5px',
-        borderTopRightRadius: '5px',
-        height: '140px',
-        marginBottom: '20px',
-        display: 'flex',
-        alignItems: 'flex-end',
-        borderBottom: 'rgb(77, 133, 149) solid 2px',
-        position: 'relative'
+
+    handleDateFormat = () => {
+
+        return (
+            <h3 className={'gradientText'}>
+                {showTimeHourFormatted(this.props)} {dateFormatted(this.props)}
+            </h3>
+        );
     };
+
 
     onSitSelect = (event) => {
         const row = event.target.parentNode.rowIndex;
@@ -33,7 +35,16 @@ class Sits extends React.Component {
         for (var x = 0; x < this.props.sits.rowLength; x++) {
             sits[x] = [];
             for (var y = 0; y < this.props.sits.rows; y++) {
-                sits[x][y] = "🪑";
+                sits[x][y] = (
+                    <Button size={"small"}
+                            style={{minWidth: '20px'}}
+                            color={"primary"}
+                            onClick={this.onSitSelect}
+                            variant="contained"
+                    >
+                        {y + 1}
+                    </Button>
+                );
             }
         }
     }
@@ -46,37 +57,49 @@ class Sits extends React.Component {
 
     render() {
         const sits = [];
-        console.log(this.props)
         this.createEmpty(sits);
         this.markTaken(sits);
 
         let key = 0;
-        const sitsGrid = sits.map((row) => {
+        const sitsGrid = sits.map((row, index) => {
             return (
-                <tr key={key++}>
+
+                <tr style={rowStyles} key={key++}>
+                    <td className='gradientText'>
+                        {rowLetters[index]}
+                    </td>
                     {row.map((s) => {
-                        return <td key={key++} onClick={this.onSitSelect}>{s}</td>;
+                        return <td style={{verticalAlign: 'bottom'}} key={key++}>{s}</td>;
                     })}
                 </tr>
             );
         });
 
 
-        return (<div>
-            <div style={this.selectedMovieStyle}>
-                <div className='shader bottom poster'>
-                    <h2>{this.props.selectedMovie}</h2>
+        return (
+            <div>
+                <div style={selectedMovieStyle(this.props)}>
+                    <div className='shader bottom poster'>
+                        <h2>{this.props.title}</h2>
+                        {this.handleDateFormat()}
+                    </div>
+                </div>
+                <div style={overflowDiv}>
+                    <table style={{borderCollapse: 'separate'}}>
+                        <tbody>
+                        {sitsGrid}
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <table>
-                <tbody>{sitsGrid}</tbody>
-            </table>
-        </div>);
+        );
     }
 }
 
 Sits.propTypes = {
     sits: PropType.object,
+    title: PropType.string,
+    poster: PropType.string,
     onSelect: PropType.func
 };
 

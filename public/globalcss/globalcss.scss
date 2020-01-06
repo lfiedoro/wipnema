@@ -46,11 +46,20 @@ h1, h2, h3, h4, h5 {
 
   &.poster {
     @include positionb(0, 0);
-    height: 60px;
+    height: 80px;
     display: flex;
-    align-items: center;
     padding: 0 10px;
     box-sizing: border-box;
+    justify-content: center;
+    flex-flow: column nowrap;
+
+    h2 {
+      font-size: 1.2rem;
+    }
+
+    h3 {
+      font-size: 1rem;
+    }
   }
 }
 

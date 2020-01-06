@@ -1,11 +1,11 @@
 import React, {Component} from "react";
 import PropType from 'prop-types';
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 import MovieList from "./contentViews/MovieList";
 import ShowtimeList from "./contentViews/ShowtimeList";
 import Sits from "./contentViews/Sits";
 import Reservation from "./contentViews/Reservation";
+import {loading} from "./contentViews/constants";
 
 class Content extends Component {
 
@@ -22,9 +22,7 @@ class Content extends Component {
         return (<div className={'maxHeight'} style={this.contentWrapper}>
 
                 {!this.props.pageView ?
-                    <div style={{margin: '20px auto', textAlign: 'center'}}>
-                        <CircularProgress size={100} color="secondary"/>
-                    </div>
+                    loading()
                     : null}
 
                 {this.props.pageView & 0b0001 ?
@@ -42,21 +40,24 @@ class Content extends Component {
                         onSelect={this.props.onShowtimeSelect}
                     /> : null}
 
-                  {this.props.pageView & 0b0100 ?
-                   <Sits
-                     sits={this.props.sits}
-                     onSelect={this.props.onSitSelect}
-                   /> : null}
+                {this.props.pageView & 0b0100 ?
+                    <Sits
+                        sits={this.props.sits}
+                        onSelect={this.props.onSitSelect}
+                        poster={this.props.poster}
+                        date={this.props.showtimeDate}
+                        title={this.props.selectedMovie}
+                    /> : null}
 
-                  {this.props.pageView & 0b1000 ?
-                   <Reservation
-                     title={this.props.selectedMovie}
-                     date={this.props.showtimeDate}
-                     id={this.props.showtimeId}
-                   /> : null}
+                {this.props.pageView & 0b1000 ?
+                    <Reservation
+                        title={this.props.selectedMovie}
+                        date={this.props.showtimeDate}
+                        id={this.props.showtimeId}
+                    /> : null}
 
-                </div>
-               );
+            </div>
+        );
     }
 
 }

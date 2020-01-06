@@ -9,7 +9,7 @@ class ThemeWrapper extends Component {
             primary: {
                 light: 'rgba(126, 193, 209, 1)',
                 main: 'rgba(126, 193, 209, 1)',
-                dark: 'rgb(54,102,115)',
+                dark: 'rgb(85,159,179)',
                 contrastText: 'rgba(39, 41, 50, 1)',
             },
             secondary: {

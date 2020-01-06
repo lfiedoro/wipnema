@@ -18,7 +18,6 @@ const ShowTimeDateView = (props) => {
 
     return (
         <div className='dayCard'>
-
             <div className='day'>
                 {props.date}
             </div>

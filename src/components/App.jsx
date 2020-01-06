@@ -88,17 +88,17 @@ class App extends React.Component {
 
     onShowtimeSelect = async (showtimeId, showtimeDate) => {
         this.setState({
-            pageView: 0b01000000
+            pageView: 0b0000
         });
 
-        const getSits = await reservation.get(`/bookings/${showtimeId}`);
+        const getSits = await reservation.get(`/bookings/showtime/${showtimeId}`);
 
         this.setState({
             showtimeId,
             showtimeDate,
             sits: getSits.data,
             pageView: 0b00000100
-        }, () => console.log(this.state));
+        });
     };
 
     onSitSelect = (row, column) => {
