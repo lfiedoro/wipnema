@@ -88,10 +88,10 @@ class App extends React.Component {
 
     onShowtimeSelect = async (showtimeId, showtimeDate) => {
         this.setState({
-            pageView: 0b0000
+            pageView: 0b01000000
         });
 
-        const getSits = await reservation.get(`/bookings/showtime/${showtimeId}`);
+        const getSits = await reservation.get(`/showtime/${showtimeId}`);
 
         this.setState({
             showtimeId,
@@ -105,6 +105,18 @@ class App extends React.Component {
         this.setState({
             pageView: 0b00001000
         });
+    };
+
+    onReservationSubmit = async customer => {
+        this.setState({ customer });
+
+        await reservation.post('/bookings', {
+            customer: this.state.customer,
+            showtimeId: this.state.showtimeId,
+            seats: [{ row: 2, number: 3 }]
+        })
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
     };
 
     render() {
@@ -126,6 +138,7 @@ class App extends React.Component {
                         onMovieSelect={this.onMovieSelect}
                         onShowtimeSelect={this.onShowtimeSelect}
                         onSitSelect={this.onSitSelect}
+                        onReservationSubmit={this.onReservationSubmit}
                     />
                     <div className="shader bottom"/>
                 </div>
