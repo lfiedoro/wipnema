@@ -11,18 +11,23 @@ const ShowTimeMonthView = (props) => {
         "July", "August", "September", "October", "November", "December"
     ];
 
-    const showtimesFilteredByDay = props.dates.map(date => {
-        const filteredShowtimes = props.showtimes.filter(showtime => new Date(showtime.start_at).getDate() === date)
+    const sortedDates = props.dates.sort((a, b) => a - b);
+
+    const showtimesFilteredByDay = sortedDates.map(date => {
+
+        const filteredShowtimes = props.showtimes.filter(showtime => new Date(showtime.start_at).getDate() === date);
         return (
             <ShowTimeDateView
                 key={date}
                 showtimes={filteredShowtimes}
                 date={date}
                 title={props.title}
+                poster={props.poster}
                 onSelect={props.onSelect}
             />
         );
     });
+
 
     const expanded = new Date(Date.now()).getMonth() === props.month;
 

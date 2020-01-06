@@ -3,15 +3,6 @@ import PropTypes from 'prop-types';
 import ShowTimeMonthView from "./ShowtimeMonthView";
 
 const ShowtimeList = (props) => {
-    // const showtimes = props.showtimes.map((showtime) => {
-    //     return <Showtime
-    //         key={showtime.id}
-    //         id={showtime.id}
-    //         date={showtime.start_at}
-    //         title={props.showName}
-    //         onSelect={props.onSelect}
-    //     />;
-    // });
     const _ = require('lodash');
     const selectedMovieStyle = {
         background: `url(${props.poster}) no-repeat 50% 50% / cover`,
@@ -40,6 +31,7 @@ const ShowtimeList = (props) => {
                 showtimes={filteredShowtimes}
                 dates={uniqueDates}
                 title={props.showName}
+                poster={props.poster}
                 onSelect={props.onSelect}
             />
         )

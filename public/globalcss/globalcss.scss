@@ -167,6 +167,7 @@ h1, h2, h3, h4, h5 {
       .cardBg {
         background: $theme-gray;
         flex-flow: column nowrap;
+        padding: 8px 10px 24px;
 
         &.movies {
           flex-flow: unset;
@@ -194,6 +195,7 @@ h1, h2, h3, h4, h5 {
             padding-right: 10px;
             border-right: $theme-green-accent solid 1px;
             margin-right: 5px;
+            min-width: 65px;
           }
 
           &.hours {

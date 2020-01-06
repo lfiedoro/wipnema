@@ -21,6 +21,7 @@ class Showtime extends React.Component {
 
 
     render() {
+
         const showtimeHour = new Date(this.props.date);
         const showTimeHourFormatted = `${showtimeHour.getHours()}:${(showtimeHour.getMinutes().toString().length === 1)
             ? `0${showtimeHour.getMinutes()}`
@@ -29,6 +30,8 @@ class Showtime extends React.Component {
         return <Chip
             onClick={this.onDateSelect}
             label={showTimeHourFormatted}
+            title={this.props.title}
+            poster={this.props.poster}
             disabled={this.disabled}
         />
     }
@@ -36,6 +39,7 @@ class Showtime extends React.Component {
 
 Showtime.propTypes = {
     title: PropType.string,
+    poster: PropType.string,
     id: PropType.string,
     date: PropType.string,
     onSelect: PropType.func
