@@ -69,7 +69,7 @@ class Sits extends React.Component {
                         {rowLetters[index]}
                     </td>
                     {row.map((s) => {
-                        return <td style={{verticalAlign: 'bottom'}} key={key++}>{s}</td>;
+                        return <td style={{verticalAlign: 'middle'}} key={key++}>{s}</td>;
                     })}
                 </tr>
             );

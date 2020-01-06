@@ -17,7 +17,6 @@ export const selectedMovieStyle = (props) => {
 
 export const overflowDiv = {
     position: 'relative',
-    overflowX: 'auto',
     height: '100%',
     width: '100%',
     zIndex: '2'
