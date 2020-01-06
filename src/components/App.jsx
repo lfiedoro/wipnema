@@ -33,44 +33,35 @@ class App extends React.Component {
         height: '90%'
     };
 
-    onSearchSubmit = async term => {
-        this.setState({
-            pageView: 0b01000000
-        });
-
-        const getCities = await showtimes.get('/cities', {
+    handleCityRequest = async term => {
+        return await showtimes.get('/cities', {
             params: {
                 countries: 'pl',
                 query: term
             }
         });
+    };
 
-        //If no movies found, bail out
-        if(!getCities.data.meta_info.total_count) {
-            console.log(getCities.data.meta_info.total_count);
-            this.setState({
-                pageView: 0b10000000
-            });
-            return;
-        }
+    onSearchSubmit = async term => {
+        this.setState({
+            pageView: 0b0000
+        });
 
         let toDate = new Date();
         toDate.setDate(toDate.getDate() + 7);
         toDate = toDate.toISOString();
 
-        const citiesIds = getCities.data.cities.map(c => c.id).join();
-
         const getMovies = await showtimes.get('/movies', {
             params: {
-                city_ids: citiesIds,
+                city_ids: term,
                 time_to: toDate
             }
         });
 
         this.setState({
             movies: getMovies.data.movies,
-            cities: citiesIds,
-            pageView: 0b00000001
+            cities: term,
+            pageView: 0b00000001,
         });
     };
 
@@ -116,14 +107,14 @@ class App extends React.Component {
         });
     };
 
-
     render() {
         return (
             <div>
-                <SearchBar onSubmit={this.onSearchSubmit}/>
+                <SearchBar getCities={this.handleCityRequest} onSubmit={this.onSearchSubmit}/>
                 <div style={this.positionStyle}>
                     <div className="shader"/>
                     <Content
+                        city={this.state.cities}
                         pageView={this.state.pageView}
                         movies={this.state.movies}
                         showtimes={this.state.showtimes}
