@@ -19,7 +19,8 @@ class App extends React.Component {
         poster: '',
         sits: {},
         // Viewing states
-        pageView: 0b0001
+        customer: {},
+        pageView: 0b00000001
     };
 
     positionStyle = {
@@ -41,6 +42,8 @@ class App extends React.Component {
             }
         });
     };
+
+
 
     onSearchSubmit = async term => {
         this.setState({
@@ -107,12 +110,24 @@ class App extends React.Component {
         });
     };
 
+    onReservationSubmit = async customer => {
+        this.setState({ customer });
+
+        await reservation.post('/bookings', {
+            customer: this.state.customer,
+            showtimeId: this.state.showtimeId,
+            seats: [{ row: 2, number: 3 }]
+        })
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+    };
+
     render() {
         return (
             <div>
-                <SearchBar getCities={this.handleCityRequest} onSubmit={this.onSearchSubmit}/>
+                <SearchBar getCities={this.handleCityRequest} onSubmit={this.onSearchSubmit} />
                 <div style={this.positionStyle}>
-                    <div className="shader"/>
+                    <div className="shader" />
                     <Content
                         city={this.state.cities}
                         pageView={this.state.pageView}
@@ -126,8 +141,9 @@ class App extends React.Component {
                         onMovieSelect={this.onMovieSelect}
                         onShowtimeSelect={this.onShowtimeSelect}
                         onSitSelect={this.onSitSelect}
+                        onReservationSubmit={this.onReservationSubmit}
                     />
-                    <div className="shader bottom"/>
+                    <div className="shader bottom" />
                 </div>
             </div>
         );
