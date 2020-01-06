@@ -18,6 +18,8 @@ class App extends React.Component {
         showtimeDate: '',
         poster: '',
         sits: {},
+        customer: {},
+        seatsTaken: [],
         // Viewing states
         pageView: 0b0001
     };
@@ -101,19 +103,20 @@ class App extends React.Component {
         });
     };
 
-    onSitSelect = (row, column) => {
+    onSitSelect = (row, number) => {
+        this.setState({ seatsTaken: [{ row, number }] })
         this.setState({
             pageView: 0b00001000
         });
     };
 
     onReservationSubmit = async customer => {
-        this.setState({customer});
+        // this.setState({ customer });
 
         await reservation.post(`/`, {
-            customer: this.state.customer,
+            customer,
             showtimeId: this.state.showtimeId,
-            seats: [{row: 2, number: 3}]
+            seats: this.state.seatsTaken
         })
             .then(res => console.log(res))
             .catch(err => console.log(err));
@@ -122,9 +125,9 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <SearchBar getCities={this.handleCityRequest} onSubmit={this.onSearchSubmit}/>
+                <SearchBar getCities={this.handleCityRequest} onSubmit={this.onSearchSubmit} />
                 <div style={this.positionStyle}>
-                    <div className="shader"/>
+                    <div className="shader" />
                     <Content
                         city={this.state.cities}
                         pageView={this.state.pageView}
@@ -140,7 +143,7 @@ class App extends React.Component {
                         onSitSelect={this.onSitSelect}
                         onReservationSubmit={this.onReservationSubmit}
                     />
-                    <div className="shader bottom"/>
+                    <div className="shader bottom" />
                 </div>
             </div>
         );

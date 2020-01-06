@@ -1,7 +1,7 @@
 import React from 'react';
 import PropType from 'prop-types';
-import {overflowDiv, rowStyles, selectedMovieStyle} from "./styles";
-import {dateFormatted, rowLetters, showTimeHourFormatted} from "./constants";
+import { overflowDiv, rowStyles, selectedMovieStyle } from "./styles";
+import { dateFormatted, rowLetters, showTimeHourFormatted } from "./constants";
 import Button from "@material-ui/core/Button";
 
 class Sits extends React.Component {
@@ -22,12 +22,13 @@ class Sits extends React.Component {
 
 
     onSitSelect = (event) => {
-        const row = event.target.parentNode.rowIndex;
-        const column = event.target.cellIndex;
+        const row = event.target.parentNode.parentNode.rowIndex;
+        const column = event.target.parentNode.cellIndex;
 
+        console.log(event.target);
         console.log(`row ${row} col ${column}`);
 
-        this.setState({row, column},
+        this.setState({ row, column },
             () => this.props.onSelect(this.state.row, this.state.column));
     };
 
@@ -37,10 +38,10 @@ class Sits extends React.Component {
             for (var y = 0; y < this.props.sits.rows; y++) {
                 sits[x][y] = (
                     <Button size={"small"}
-                            style={{minWidth: '20px'}}
-                            color={"primary"}
-                            onClick={this.onSitSelect}
-                            variant="contained"
+                        style={{ minWidth: '20px' }}
+                        color={"primary"}
+                        onClick={this.onSitSelect}
+                        variant="contained"
                     >
                         {y + 1}
                     </Button>
@@ -69,7 +70,7 @@ class Sits extends React.Component {
                         {rowLetters[index]}
                     </td>
                     {row.map((s) => {
-                        return <td style={{verticalAlign: 'bottom'}} key={key++}>{s}</td>;
+                        return <td style={{ verticalAlign: 'bottom' }} key={key++}>{s}</td>;
                     })}
                 </tr>
             );
@@ -85,9 +86,9 @@ class Sits extends React.Component {
                     </div>
                 </div>
                 <div style={overflowDiv}>
-                    <table style={{borderCollapse: 'separate'}}>
+                    <table style={{ borderCollapse: 'separate' }}>
                         <tbody>
-                        {sitsGrid}
+                            {sitsGrid}
                         </tbody>
                     </table>
                 </div>
