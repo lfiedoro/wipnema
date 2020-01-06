@@ -88,7 +88,7 @@ class App extends React.Component {
 
     onShowtimeSelect = async (showtimeId, showtimeDate) => {
         this.setState({
-            pageView: 0b01000000
+            pageView: 0b0000
         });
 
         const getSits = await reservation.get(`/showtime/${showtimeId}`);
@@ -108,12 +108,12 @@ class App extends React.Component {
     };
 
     onReservationSubmit = async customer => {
-        this.setState({ customer });
+        this.setState({customer});
 
-        await reservation.post('/bookings', {
+        await reservation.post(`/`, {
             customer: this.state.customer,
             showtimeId: this.state.showtimeId,
-            seats: [{ row: 2, number: 3 }]
+            seats: [{row: 2, number: 3}]
         })
             .then(res => console.log(res))
             .catch(err => console.log(err));
