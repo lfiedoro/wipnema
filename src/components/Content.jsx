@@ -59,7 +59,6 @@ class Content extends Component {
     </div>
     );
   }
-
 }
 
 Content.propTypes = {

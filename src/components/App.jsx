@@ -64,13 +64,13 @@ class App extends React.Component {
         this.setState({
             movies: getMovies.data.movies,
             cities: term,
-            pageView: 0b00000001,
+            pageView: 0b0001
         });
     };
 
     onMovieSelect = async (movieId, movieName, poster) => {
         this.setState({
-            pageView: 0b01000000
+            pageView: 0b0000
         });
 
         const getShowtimes = await showtimes.get('/showtimes', {
@@ -84,8 +84,8 @@ class App extends React.Component {
         this.setState({
             selectedMovie: movieName,
             showtimes: getShowtimes.data.showtimes,
-            pageView: 0b00000010,
-            poster: poster
+            poster: poster,
+            pageView: 0b0010
         });
     };
 
@@ -94,14 +94,14 @@ class App extends React.Component {
             pageView: 0b01000000
         });
 
-        const getSits = await reservation.get(`/bookings/showtime/${showtimeId}`);
+        const getSits = await reservation.get(`/showtime/${showtimeId}`);
 
         this.setState({
             showtimeId,
             showtimeDate,
             sits: getSits.data,
             pageView: 0b00000100
-        }, () => console.log(this.state));
+        });
     };
 
     onSitSelect = (row, column) => {
