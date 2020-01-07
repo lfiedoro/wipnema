@@ -22,9 +22,10 @@ class Sits extends React.Component {
 
 
     onSitSelect = (event) => {
-        const row = event.target.parentNode.rowIndex;
-        const column = event.target.cellIndex;
+        const row = event.target.parentNode.parentNode.rowIndex;
+        const column = event.target.parentNode.cellIndex;
 
+        console.log(event.target);
         console.log(`row ${row} col ${column}`);
 
         this.setState({row, column},
