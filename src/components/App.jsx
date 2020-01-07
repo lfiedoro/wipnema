@@ -86,8 +86,6 @@ class App extends React.Component {
 
         const getSits = await reservation.get(`/showtime/${showtimeId}`);
 
-        console.log(getSits.data)
-
         this.setState({
             showtimeId,
             showtimeDate,
