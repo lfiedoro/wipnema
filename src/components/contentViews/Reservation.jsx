@@ -15,7 +15,7 @@ class Reservation extends React.Component {
         this.setState({
         }, () => this.props.onReservationSubmit({ name: this.state.name, email: this.state.email }))
 
-    }
+    };
 
     render() {
         return (

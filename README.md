@@ -22,7 +22,7 @@ Work In Progress ciNEMA app. Concept for showtime booking app.
          |                       |                          |                       |                   |
 +--------+-----+        +--------v----+          +----------v-----+         +-------+--------+          |
 |              |        |             |          |                |         |                |          |
-|  Search Bar  |        | Movie List  |          | Showtime List  |         |  Theater Sits  |          |
+|  Search Bar  |        | Movie List  |          | Showtime List  |         |  Theater Seats  |          |
 |              |        |             |          |                |         |                |          |
 +--------------+        +--------+----+          +----------+-----+         +----------------+          |
                                  |                          |                                           |
@@ -44,7 +44,7 @@ Work In Progress ciNEMA app. Concept for showtime booking app.
 | Movie         | Particular title, *clickable*                   |
 | Showtime List | List of all avaliable showtimes                 |
 | Showtime      | Particular showtime, *clickable*                |
-| Sits          | Grid of sits for specific showtime, *clickable* |
+| Seats          | Grid of sits for specific showtime, *clickable* |
 | Reservation   | View with reservation fields                    |
 ```
 

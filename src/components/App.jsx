@@ -5,6 +5,7 @@ import reservation from '../api/reservation';
 
 import SearchBar from './SearchBar';
 import Content from "./Content";
+import {positionStyle} from "./contentViews/styles";
 
 // "https://api.internationalshowtimes.com/v4/cities/?location=pl&query=gda"
 
@@ -17,23 +18,13 @@ class App extends React.Component {
         showtimeId: '',
         showtimeDate: '',
         poster: '',
-        sits: {},
+        seats: {},
         customer: {},
         seatsTaken: [],
         // Viewing states
         pageView: 0b0001
     };
 
-    positionStyle = {
-        position: 'relative',
-        display: 'flex',
-        justifyContent: 'center',
-        alignContent: 'center',
-        alignItems: 'center',
-        flexFlow: 'column nowrap',
-        width: '100%',
-        height: '90%'
-    };
 
     handleCityRequest = async term => {
         return await showtimes.get('/cities', {
@@ -95,16 +86,18 @@ class App extends React.Component {
 
         const getSits = await reservation.get(`/showtime/${showtimeId}`);
 
+        console.log(getSits.data)
+
         this.setState({
             showtimeId,
             showtimeDate,
-            sits: getSits.data,
+            seats: getSits.data,
             pageView: 0b00000100
         });
     };
 
-    onSitSelect = (row, number) => {
-        this.setState({ seatsTaken: [{ row, number }] })
+    onSeatSelect = (row, number) => {
+        this.setState({seatsSelected: [...{row, number}]})
         this.setState({
             pageView: 0b00001000
         });
@@ -125,25 +118,25 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <SearchBar getCities={this.handleCityRequest} onSubmit={this.onSearchSubmit} />
-                <div style={this.positionStyle}>
-                    <div className="shader" />
+                <SearchBar getCities={this.handleCityRequest} onSubmit={this.onSearchSubmit}/>
+                <div style={positionStyle} className='landscapeMob'>
+                    <div className="shader"/>
                     <Content
                         city={this.state.cities}
                         pageView={this.state.pageView}
                         movies={this.state.movies}
                         showtimes={this.state.showtimes}
                         selectedMovie={this.state.selectedMovie}
-                        sits={this.state.sits}
+                        seats={this.state.seats}
                         showtimeDate={this.state.showtimeDate}
                         showtimeId={this.state.showtimeId}
                         poster={this.state.poster}
                         onMovieSelect={this.onMovieSelect}
                         onShowtimeSelect={this.onShowtimeSelect}
-                        onSitSelect={this.onSitSelect}
+                        onSitSelect={this.onSeatSelect}
                         onReservationSubmit={this.onReservationSubmit}
                     />
-                    <div className="shader bottom" />
+                    <div className="shader bottom"/>
                 </div>
             </div>
         );

@@ -5,6 +5,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
+import {formStyles} from "./contentViews/styles";
 
 class SearchBar extends React.Component {
 
@@ -13,13 +14,6 @@ class SearchBar extends React.Component {
         cities: []
     };
 
-    formStyles = {
-        display: 'flex',
-        flexFlow: 'row nowrap',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        alignContent: 'center'
-    };
 
     citiesItems = [];
 
@@ -33,7 +27,7 @@ class SearchBar extends React.Component {
         navigator.geolocation.getCurrentPosition(position => {
             const _ = require('lodash');
 
-            const fractionDigit = 3;
+            const fractionDigit = 1;
 
             const lat = position.coords.latitude.toFixed(fractionDigit);
             const lon = position.coords.longitude.toFixed(fractionDigit);
@@ -84,7 +78,7 @@ class SearchBar extends React.Component {
         return (
             <div>
                 <form>
-                    <div style={this.formStyles}>
+                    <div style={formStyles} className="formClass">
                         <Button
                             disabled={!this.citiesItems.length}
                             onClick={this.handleFindCurrentLocation}
@@ -123,9 +117,6 @@ class SearchBar extends React.Component {
                         </Button>
                     </div>
                 </form>
-                <div>
-
-                </div>
             </div>
         );
     }

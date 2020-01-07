@@ -26,7 +26,7 @@ class Showtime extends React.Component {
         return <Chip
             onClick={this.onDateSelect}
             label={showTimeHourFormatted(this.props)}
-            title={this.props.title}
+            title={`${showTimeHourFormatted(this.props)} - ${this.props.title}`}
             poster={this.props.poster}
             date={this.props.date}
             disabled={this.disabled}
