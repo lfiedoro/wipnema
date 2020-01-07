@@ -2,7 +2,7 @@ import React from 'react';
 import PropType from 'prop-types';
 import {overflowDiv, rowStyles, selectedMovieStyle} from "./styles";
 import {dateFormatted, rowLetters, showTimeHourFormatted} from "./constants";
-import IndividualSeat from "../IndividualSeat";
+import IndividualSeat from "./IndividualSeat";
 
 class Seats extends React.Component {
     state = {
@@ -26,7 +26,7 @@ class Seats extends React.Component {
         if (!this.state.seatsSelected.find(seat => seat.row === seatSelected.row && seat.column === seatSelected.column)) {
             this.setState({
                 seatsSelected: [...this.state.seatsSelected, seatSelected]
-            }, () => this.props.onSelect(this.state.seatsSelected));
+            },() => this.props.onSelect(this.state.seatsSelected));
         } else {
             const filteredSeatsTakenArray = this.state.seatsSelected.filter(seat => !(seat.row === seatSelected.row && seat.column === seatSelected.column));
             this.setState({

@@ -13,7 +13,7 @@ class Content extends Component {
 
     render() {
         return (
-            <div className={'maxHeight'} style={contentWrapper}>
+            <div className={'maxHeight'} style={contentWrapper(this.props.selectedSeatsCount)}>
                 {!this.props.pageView ?
                     loading()
                     : null}
@@ -47,6 +47,7 @@ class Content extends Component {
                         title={this.props.selectedMovie}
                         date={this.props.showtimeDate}
                         id={this.props.showtimeId}
+                        seatsSelected={this.props.seatsSelected}
                         onReservationSubmit={this.props.onReservationSubmit}
                     /> : null}
             </div>
@@ -58,6 +59,7 @@ class Content extends Component {
 Content.propTypes = {
     pageView: PropType.number,
     seats: PropType.object,
+    seatsSelected: PropType.array,
     poster: PropType.string,
 
     movies: PropType.array,
@@ -70,6 +72,7 @@ Content.propTypes = {
     onMovieSelect: PropType.func,
     onShowtimeSelect: PropType.func,
     onSitSelect: PropType.func,
+    selectedSeatsCount: PropType.number,
     onReservationSubmit: PropType.func
 };
 

@@ -5,7 +5,8 @@ import reservation from '../api/reservation';
 
 import SearchBar from './SearchBar';
 import Content from "./Content";
-import {positionStyle} from "./contentViews/styles";
+import {offPositionStyling, positionStyle} from "./contentViews/styles";
+import SeatSelectedContainer from "./contentViews/SeatSelectedContainer";
 
 // "https://api.internationalshowtimes.com/v4/cities/?location=pl&query=gda"
 
@@ -22,10 +23,17 @@ class App extends React.Component {
         customer: {},
         seatsTaken: [],
         seatsSelected: [],
+        containerVisible: true,
         // Viewing states
         pageView: 0b0001
     };
 
+
+    toggleVisibility = () => {
+        this.setState(prevState => ({
+            containerVisible: !prevState.containerVisible
+        }));
+    };
 
     handleCityRequest = async term => {
         return await showtimes.get('/cities', {
@@ -97,10 +105,6 @@ class App extends React.Component {
 
     onSeatSelect = (seatsSelected) => {
         this.setState({seatsSelected: [...seatsSelected]});
-
-        // this.setState({
-        //     pageView: 0b00001000
-        // });
     };
 
     onReservationSubmit = async customer => {
@@ -115,16 +119,34 @@ class App extends React.Component {
             .catch(err => console.log(err));
     };
 
-    pageViewSplitter = () => {
-        return this.state.seatsSelected.length > 0 ? '90%' : '100%'
+    onSeatsConfirmation = () => {
+        this.setState({
+            pageView: 0b00001000
+        });
     };
+
+    seatsSelectedContainerToggler = () => {
+        const selectedCount = this.state.seatsSelected.length;
+        return (
+            <div className='animate' style={offPositionStyling(selectedCount)}>
+                {selectedCount && this.state.pageView !== 0b00001000 ?
+                    <SeatSelectedContainer
+                        seatsSelected={this.state.seatsSelected}
+                        containerVisible={this.state.containerVisible}
+                        toggleVisibility={this.toggleVisibility}
+                        onSeatsConfirmation={this.onSeatsConfirmation}
+                    />
+                    : null
+                }
+            </div>
+        );
+    };
+
 
     render() {
         return (
             <div>
-
-
-                <div style={{maxHeight: this.pageViewSplitter()}} className='animate'>
+                <div>
                     <SearchBar getCities={this.handleCityRequest} onSubmit={this.onSearchSubmit}/>
                     <div style={positionStyle} className='landscapeMob'>
                         <div className="shader"/>
@@ -138,6 +160,8 @@ class App extends React.Component {
                             showtimeDate={this.state.showtimeDate}
                             showtimeId={this.state.showtimeId}
                             poster={this.state.poster}
+                            selectedSeatsCount={this.state.seatsSelected.length}
+                            seatsSelected={this.state.seatsSelected}
                             onMovieSelect={this.onMovieSelect}
                             onShowtimeSelect={this.onShowtimeSelect}
                             onSitSelect={this.onSeatSelect}
@@ -146,8 +170,7 @@ class App extends React.Component {
                         <div className="shader bottom"/>
                     </div>
                 </div>
-                <div className='animate'
-                     style={{maxHeight: (this.state.seatsSelected.length > 0) ? '10%' : '0%'}}>{this.state.seatsSelected.length}</div>
+                {this.seatsSelectedContainerToggler()}
             </div>
         );
     }

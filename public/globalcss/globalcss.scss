@@ -147,7 +147,7 @@ h1, h2, h3, h4, h5 {
 
   #main-wrapper {
     position: relative;
-    height: 85%;
+    height: 100%;
     margin: 0 auto;
     width: 100%;
     @include breakpoint-desktop {
@@ -167,6 +167,34 @@ h1, h2, h3, h4, h5 {
         padding: 5px 0;
       }
 
+      .selectedSeatContainer {
+        border-top: $theme-green-accent solid 2px;
+        color: $white;
+        padding: 5px;
+        min-height: 65px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        align-content: center;
+        box-sizing: border-box;
+        @include box-shadow(0, 0, 40px, $theme-gray);
+        @include gradient($theme-gray, $theme-dark, vertical);
+        @include box(100%, 100%);
+
+        > div:first-of-type {
+          max-width: 70%;
+        }
+
+        > div:first-of-type > :first-child {
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: flex-start;
+          align-items: center;
+          align-content: center;
+        }
+
+      }
+
       .animate {
         @include transition(all .3s ease);
       }
@@ -184,6 +212,15 @@ h1, h2, h3, h4, h5 {
         }
       }
 
+      .seatsArray {
+        display: flex;
+        margin: 5px 0;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+      }
+
       .startImage {
         margin: 20px auto;
         @include breakpoint-mobile {
@@ -192,7 +229,7 @@ h1, h2, h3, h4, h5 {
         width: 40%;
       }
 
-      #root, #root > div {
+      #root, #root > div, #root > div > div:first-of-type {
         position: relative;
         height: 100%;
       }

@@ -14,6 +14,22 @@ export const selectedMovieStyle = (props) => {
     }
 };
 
+export const offPositionStyling = (seatsCount) => {
+
+    const handleToggleView = seatsCount ? 'translateY(5%)' : 'translateY(150%)';
+
+    return {
+        position: 'absolute',
+        bottom: '0',
+        left: '0',
+        width: '100%',
+        minHeight: '10%',
+        margin: '0 auto',
+        zIndex: 5,
+        transform: handleToggleView
+    }
+};
+
 export const positionStyle = {
     position: 'relative',
     display: 'flex',
@@ -25,13 +41,16 @@ export const positionStyle = {
     height: '90%'
 };
 
-export const contentWrapper = {
-    height: '100%',
-    width: '95%',
-    padding: '10px 0',
-    zIndex: 2,
-    boxSizing: 'border-box',
-    overflowY: 'auto'
+export const contentWrapper = (selectedSeatsCount) => {
+    return {
+        height: '100%',
+        width: '95%',
+        padding: '10px 0',
+        zIndex: 2,
+        boxSizing: 'border-box',
+        overflowY: 'auto',
+        paddingBottom: selectedSeatsCount ? '80px' : 'unset'
+    }
 };
 
 export const formStyles = {

@@ -6,6 +6,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import {formStyles} from "./contentViews/styles";
+import Tooltip from "@material-ui/core/Tooltip";
 
 class SearchBar extends React.Component {
 
@@ -27,7 +28,7 @@ class SearchBar extends React.Component {
         navigator.geolocation.getCurrentPosition(position => {
             const _ = require('lodash');
 
-            const fractionDigit = 1;
+            const fractionDigit = 3;
 
             const lat = position.coords.latitude.toFixed(fractionDigit);
             const lon = position.coords.longitude.toFixed(fractionDigit);
@@ -79,18 +80,24 @@ class SearchBar extends React.Component {
             <div>
                 <form>
                     <div style={formStyles} className="formClass">
-                        <Button
-                            disabled={!this.citiesItems.length}
-                            onClick={this.handleFindCurrentLocation}
-                            style={{marginRight: '5px'}}
-                            variant="contained"
-                            size={"large"}
-                            color="primary"
+                        <Tooltip
+                            title="Select city based on your current location"
                         >
-                            <i className="material-icons">
-                                my_location
-                            </i>
-                        </Button>
+                            <span>
+                            <Button
+                                disabled={!this.citiesItems.length}
+                                onClick={this.handleFindCurrentLocation}
+                                style={{marginRight: '5px'}}
+                                variant="contained"
+                                size={"large"}
+                                color="primary"
+                            >
+                                <i className="material-icons">
+                                    my_location
+                                </i>
+                            </Button>
+                            </span>
+                        </Tooltip>
                         <FormControl
                             disabled={!this.citiesItems.length}
                             size={"small"}
@@ -103,18 +110,24 @@ class SearchBar extends React.Component {
                                 {this.citiesItems}
                             </Select>
                         </FormControl>
-                        <Button
-                            disabled={!this.state.term}
-                            onClick={this.onFormSubmit}
-                            style={{marginLeft: '5px'}}
-                            variant="contained"
-                            size={"large"}
-                            color="secondary"
+                        <Tooltip
+                            title="See currently played movies"
                         >
-                            <i className="material-icons">
-                                local_movies
-                            </i>
-                        </Button>
+                            <span>
+                            <Button
+                                disabled={!this.state.term}
+                                onClick={this.onFormSubmit}
+                                style={{marginLeft: '5px'}}
+                                variant="contained"
+                                size={"large"}
+                                color="secondary"
+                            >
+                                <i className="material-icons">
+                                    local_movies
+                                </i>
+                            </Button>
+                            </span>
+                        </Tooltip>
                     </div>
                 </form>
             </div>

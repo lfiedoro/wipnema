@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import Tooltip from "@material-ui/core/Tooltip";
-import {rowLetters} from "./contentViews/constants";
+import {rowLetters} from "./constants";
 import PropType from "prop-types";
 
 const IndividualSeat = (props) => {

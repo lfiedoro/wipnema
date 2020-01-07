@@ -22,7 +22,6 @@ class Showtime extends React.Component {
 
 
     render() {
-
         return <Chip
             onClick={this.onDateSelect}
             label={showTimeHourFormatted(this.props)}
