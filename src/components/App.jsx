@@ -21,6 +21,7 @@ class App extends React.Component {
         seats: {},
         customer: {},
         seatsTaken: [],
+        seatsSelected: [],
         // Viewing states
         pageView: 0b0001
     };
@@ -94,11 +95,12 @@ class App extends React.Component {
         });
     };
 
-    onSeatSelect = (row, number) => {
-        this.setState({seatsSelected: [...{row, number}]})
-        this.setState({
-            pageView: 0b00001000
-        });
+    onSeatSelect = (seatsSelected) => {
+        this.setState({seatsSelected: [...seatsSelected]});
+
+        // this.setState({
+        //     pageView: 0b00001000
+        // });
     };
 
     onReservationSubmit = async customer => {
@@ -113,29 +115,39 @@ class App extends React.Component {
             .catch(err => console.log(err));
     };
 
+    pageViewSplitter = () => {
+        return this.state.seatsSelected.length > 0 ? '90%' : '100%'
+    };
+
     render() {
         return (
             <div>
-                <SearchBar getCities={this.handleCityRequest} onSubmit={this.onSearchSubmit}/>
-                <div style={positionStyle} className='landscapeMob'>
-                    <div className="shader"/>
-                    <Content
-                        city={this.state.cities}
-                        pageView={this.state.pageView}
-                        movies={this.state.movies}
-                        showtimes={this.state.showtimes}
-                        selectedMovie={this.state.selectedMovie}
-                        seats={this.state.seats}
-                        showtimeDate={this.state.showtimeDate}
-                        showtimeId={this.state.showtimeId}
-                        poster={this.state.poster}
-                        onMovieSelect={this.onMovieSelect}
-                        onShowtimeSelect={this.onShowtimeSelect}
-                        onSitSelect={this.onSeatSelect}
-                        onReservationSubmit={this.onReservationSubmit}
-                    />
-                    <div className="shader bottom"/>
+
+
+                <div style={{maxHeight: this.pageViewSplitter()}} className='animate'>
+                    <SearchBar getCities={this.handleCityRequest} onSubmit={this.onSearchSubmit}/>
+                    <div style={positionStyle} className='landscapeMob'>
+                        <div className="shader"/>
+                        <Content
+                            city={this.state.cities}
+                            pageView={this.state.pageView}
+                            movies={this.state.movies}
+                            showtimes={this.state.showtimes}
+                            selectedMovie={this.state.selectedMovie}
+                            seats={this.state.seats}
+                            showtimeDate={this.state.showtimeDate}
+                            showtimeId={this.state.showtimeId}
+                            poster={this.state.poster}
+                            onMovieSelect={this.onMovieSelect}
+                            onShowtimeSelect={this.onShowtimeSelect}
+                            onSitSelect={this.onSeatSelect}
+                            onReservationSubmit={this.onReservationSubmit}
+                        />
+                        <div className="shader bottom"/>
+                    </div>
                 </div>
+                <div className='animate'
+                     style={{maxHeight: (this.state.seatsSelected.length > 0) ? '10%' : '0%'}}>{this.state.seatsSelected.length}</div>
             </div>
         );
     }

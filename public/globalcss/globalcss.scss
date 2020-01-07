@@ -167,6 +167,10 @@ h1, h2, h3, h4, h5 {
         padding: 5px 0;
       }
 
+      .animate {
+        @include transition(all .3s ease);
+      }
+
       .landscapeMob {
         @include breakpoint-mobile-land {
           height: 70% !important;

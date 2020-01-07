@@ -26,12 +26,12 @@ class Seats extends React.Component {
         if (!this.state.seatsSelected.find(seat => seat.row === seatSelected.row && seat.column === seatSelected.column)) {
             this.setState({
                 seatsSelected: [...this.state.seatsSelected, seatSelected]
-            });
+            }, () => this.props.onSelect(this.state.seatsSelected));
         } else {
             const filteredSeatsTakenArray = this.state.seatsSelected.filter(seat => !(seat.row === seatSelected.row && seat.column === seatSelected.column));
             this.setState({
                 seatsSelected: [...filteredSeatsTakenArray]
-            })
+            }, () => this.props.onSelect(filteredSeatsTakenArray))
         }
     };
 
