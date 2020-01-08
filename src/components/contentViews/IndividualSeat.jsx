@@ -56,7 +56,7 @@ IndividualSeat.propTypes = {
     y: PropType.number,
     seatsTaken: PropType.array,
     seatsSelected: PropType.array,
-    onSitSelect: PropType.func,
+    onSitSelect: PropType.func
 };
 
 export default IndividualSeat;

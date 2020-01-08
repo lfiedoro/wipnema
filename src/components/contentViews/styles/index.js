@@ -41,6 +41,19 @@ export const positionStyle = {
     height: '90%'
 };
 
+export const loadingOverlay = {
+    position: 'absolute',
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    flexFlow: 'row nowrap',
+    background: 'rgba(39, 41, 50, .5)',
+    zIndex: 3,
+    width: '100%',
+    height: '90%'
+};
+
 export const contentWrapper = (selectedSeatsCount) => {
     return {
         height: '100%',
@@ -49,7 +62,7 @@ export const contentWrapper = (selectedSeatsCount) => {
         zIndex: 2,
         boxSizing: 'border-box',
         overflowY: 'auto',
-        paddingBottom: selectedSeatsCount ? '80px' : 'unset'
+        marginBottom: selectedSeatsCount ? '55px' : 'unset'
     }
 };
 

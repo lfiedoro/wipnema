@@ -7,6 +7,8 @@ import SearchBar from './SearchBar';
 import Content from "./Content";
 import {offPositionStyling, positionStyle} from "./contentViews/styles";
 import SeatSelectedContainer from "./contentViews/SeatSelectedContainer";
+import SeatsBeingSelectedContextProvider from "./contexts/SeatsBeingSelectedContext";
+import LoadingOverlay from "./contentViews/LoadingOverlay";
 
 
 class App extends Component {
@@ -111,7 +113,7 @@ class App extends Component {
     };
 
     onReservationSubmit = async customer => {
-        this.setState({ customer });
+        this.setState({customer});
 
         await reservation.post(`/`, {
             customer,
@@ -147,31 +149,35 @@ class App extends Component {
 
 
     render() {
+
         return (
             <div>
                 <div>
                     <SearchBar getCities={this.handleCityRequest} onSubmit={this.onSearchSubmit}/>
-                    <div style={positionStyle} className='landscapeMob'>
-                        <div className="shader"/>
-                        <Content
-                            city={this.state.cities}
-                            pageView={this.state.pageView}
-                            movies={this.state.movies}
-                            showtimes={this.state.showtimes}
-                            selectedMovie={this.state.selectedMovie}
-                            seats={this.state.seats}
-                            showtimeDate={this.state.showtimeDate}
-                            showtimeId={this.state.showtimeId}
-                            poster={this.state.poster}
-                            selectedSeatsCount={this.state.seatsSelected.length}
-                            seatsSelected={this.state.seatsSelected}
-                            onMovieSelect={this.onMovieSelect}
-                            onShowtimeSelect={this.onShowtimeSelect}
-                            onSitSelect={this.onSeatSelect}
-                            onReservationSubmit={this.onReservationSubmit}
-                        />
-                        <div className="shader bottom"/>
-                    </div>
+                    <SeatsBeingSelectedContextProvider>
+                        <LoadingOverlay/>
+                        <div style={positionStyle} className='landscapeMob'>
+                            <div className="shader"/>
+                            <Content
+                                city={this.state.cities}
+                                pageView={this.state.pageView}
+                                movies={this.state.movies}
+                                showtimes={this.state.showtimes}
+                                selectedMovie={this.state.selectedMovie}
+                                seats={this.state.seats}
+                                showtimeDate={this.state.showtimeDate}
+                                showtimeId={this.state.showtimeId}
+                                poster={this.state.poster}
+                                selectedSeatsCount={this.state.seatsSelected.length}
+                                seatsSelected={this.state.seatsSelected}
+                                onMovieSelect={this.onMovieSelect}
+                                onShowtimeSelect={this.onShowtimeSelect}
+                                onSitSelect={this.onSeatSelect}
+                                onReservationSubmit={this.onReservationSubmit}
+                            />
+                            <div className="shader bottom"/>
+                        </div>
+                    </SeatsBeingSelectedContextProvider>
                 </div>
                 {this.seatsSelectedContainerToggler()}
             </div>

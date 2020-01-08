@@ -12,6 +12,7 @@ const SeatSelectedContainer = (props) => {
         const seatId = `${rowLetters[seat.row]}${seat.column + 1}`;
         return (
             <Chip
+                style={{marginRight: '5px'}}
                 key={seatId}
                 label={seatId}
                 title={seatId}
@@ -39,7 +40,7 @@ const SeatSelectedContainer = (props) => {
                             expand_more
                         </i>
                     </IconButton>
-                    <h3 className='gradientText' style={{fontSize: '1rem'}}>Selected
+                    <h3 className='gradientText' style={{fontSize: '1rem', cursor: 'pointer'}}>Selected
                         seats {props.containerVisible ? ':' : `(${props.seatsSelected.length})`}</h3>
                 </div>
                 {props.containerVisible ? seatsArray() : null}

@@ -1,8 +1,9 @@
 import React from 'react';
 import PropType from 'prop-types';
 import {overflowDiv, rowStyles, selectedMovieStyle} from "./styles";
-import {dateFormatted, loading, rowLetters, showTimeHourFormatted} from "./constants";
+import {dateFormatted, rowLetters, showTimeHourFormatted} from "./constants";
 import IndividualSeat from "./IndividualSeat";
+import {SeatsBeingSelectedContext} from "../contexts/SeatsBeingSelectedContext";
 
 class Seats extends React.Component {
 
@@ -11,9 +12,11 @@ class Seats extends React.Component {
         this.state = {
             seatsSelected: [],
             seatsTaken: [],
-            seatsBeingEdited: false
         };
     }
+
+    static contextType = SeatsBeingSelectedContext;
+
 
     formattedDate = () => {
         return (
@@ -25,23 +28,25 @@ class Seats extends React.Component {
 
 
     onSitSelect = (event, x, y) => {
-        this.setState({seatsBeingEdited: true});
+        const {toggleSeatsBeingSelected} = this.context;
+        toggleSeatsBeingSelected(true);
+
         const seatSelected = {row: x, column: y};
 
         if (!this.state.seatsSelected.find(seat => seat.row === seatSelected.row && seat.column === seatSelected.column)) {
             this.setState({
                 seatsSelected: [...this.state.seatsSelected, seatSelected]
             }, () => {
-                this.props.onSelect(this.state.seatsSelected);
-                this.setState({seatsBeingEdited: false});
+                toggleSeatsBeingSelected(false);
+                this.props.onSelect(this.state.seatsSelected)
             });
         } else {
             const filteredSeatsTakenArray = this.state.seatsSelected.filter(seat => !(seat.row === seatSelected.row && seat.column === seatSelected.column));
             this.setState({
                 seatsSelected: [...filteredSeatsTakenArray]
             }, () => {
-                this.props.onSelect(filteredSeatsTakenArray);
-                this.setState({seatsBeingEdited: false});
+                toggleSeatsBeingSelected(false);
+                this.props.onSelect(filteredSeatsTakenArray)
             })
         }
     };
@@ -84,9 +89,9 @@ class Seats extends React.Component {
     };
 
     render() {
+
         return (
             <div>
-                {this.state.seatsBeingEdited ? (<div>{loading()}</div>) : null}
                 <div style={selectedMovieStyle(this.props)}>
                     <div className='shader bottom poster'>
                         <h2>{this.props.title}</h2>
@@ -94,7 +99,6 @@ class Seats extends React.Component {
                     </div>
                 </div>
                 <div style={overflowDiv}>
-
                     <table style={{borderCollapse: 'separate'}}>
                         <tbody>
                         {this.seatsGridDrawer()}
