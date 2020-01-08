@@ -5,30 +5,18 @@ import {SeatsBeingSelectedContext} from "../contexts/SeatsBeingSelectedContext";
 
 class LoadingOverlay extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            seatsBeingSelected: false
-        }
-    }
-
     static contextType = SeatsBeingSelectedContext;
 
-    componentDidMount() {
-        const {seatsBeingSelected} = this.context;
-        this.setState({seatsBeingSelected: seatsBeingSelected})
-    }
+    loadingOverlayDiv = (
+        <div style={loadingOverlay} className='animate'>
+            <div>{loading()}</div>
+        </div>
+    );
+
 
     render() {
-        console.log(this.state.seatsBeingSelected);
-        const loadingOverlayDiv = (
-            <div style={loadingOverlay} className='animate'>
-                <div>{loading()}</div>
-            </div>
-        );
-
-        return this.state.seatsBeingSelected ? loadingOverlayDiv : null
-
+        const {seatsBeingSelected} = this.context;
+        return seatsBeingSelected ? this.loadingOverlayDiv : null
     }
 }
 

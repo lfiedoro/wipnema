@@ -3,12 +3,10 @@ import React, {Component, createContext} from "react";
 export const SeatsBeingSelectedContext = createContext();
 
 class SeatsBeingSelectedContextProvider extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            seatsBeingSelected: false
-        }
-    }
+    state = {
+        seatsBeingSelected: false
+    };
+
 
     toggleSeatsBeingSelected = (value) => {
         this.setState({seatsBeingSelected: value})

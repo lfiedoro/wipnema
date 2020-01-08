@@ -7,13 +7,11 @@ import {SeatsBeingSelectedContext} from "../contexts/SeatsBeingSelectedContext";
 
 class Seats extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            seatsSelected: [],
-            seatsTaken: [],
-        };
-    }
+
+    state = {
+        seatsSelected: [],
+        seatsTaken: [],
+    };
 
     static contextType = SeatsBeingSelectedContext;
 
@@ -37,7 +35,7 @@ class Seats extends React.Component {
             this.setState({
                 seatsSelected: [...this.state.seatsSelected, seatSelected]
             }, () => {
-                toggleSeatsBeingSelected(false);
+                // toggleSeatsBeingSelected(false);
                 this.props.onSelect(this.state.seatsSelected)
             });
         } else {
@@ -45,7 +43,8 @@ class Seats extends React.Component {
             this.setState({
                 seatsSelected: [...filteredSeatsTakenArray]
             }, () => {
-                toggleSeatsBeingSelected(false);
+                // toggleSeatsBeingSelected(false);
+
                 this.props.onSelect(filteredSeatsTakenArray)
             })
         }
