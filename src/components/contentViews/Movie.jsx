@@ -9,11 +9,14 @@ import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 
 class Movie extends React.Component {
-    state = {
-        movieName: '',
-        movieId: 0,
-        poster: ''
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            movieName: '',
+            movieId: 0,
+            poster: ''
+        };
+    }
 
     onMovieSelect = () => {
         // setState accepts callback when it finishes updateing state

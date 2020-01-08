@@ -8,7 +8,6 @@ import {monthNames} from "./constants";
 
 const ShowTimeMonthView = (props) => {
 
-
     const sortedDates = props.dates.sort((a, b) => a - b);
 
     const showtimesFilteredByDay = sortedDates.map(date => {
@@ -25,7 +24,6 @@ const ShowTimeMonthView = (props) => {
             />
         );
     });
-
 
     const expanded = new Date(Date.now()).getMonth() === props.month;
 

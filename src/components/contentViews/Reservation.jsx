@@ -4,10 +4,15 @@ import PropType from 'prop-types';
 
 
 class Reservation extends React.Component {
-    state = {
-        name: '',
-        email: ''
-    };
+    constructor(props) {
+        super(props)
+        this.state = {
+            name: '',
+            email: ''
+        };
+    }
+
+
 
     onReservationSubmit = (event) => {
         event.preventDefault();

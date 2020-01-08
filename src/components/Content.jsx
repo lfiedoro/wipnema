@@ -9,8 +9,6 @@ import {loading} from "./contentViews/constants";
 import {contentWrapper} from "./contentViews/styles";
 
 class Content extends Component {
-
-
     render() {
         return (
             <div className={'maxHeight'} style={contentWrapper(this.props.selectedSeatsCount)}>

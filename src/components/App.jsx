@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import showtimes from '../api/showtimes';
 import reservation from '../api/reservation';
@@ -8,25 +8,28 @@ import Content from "./Content";
 import {offPositionStyling, positionStyle} from "./contentViews/styles";
 import SeatSelectedContainer from "./contentViews/SeatSelectedContainer";
 
-// "https://api.internationalshowtimes.com/v4/cities/?location=pl&query=gda"
 
-class App extends React.Component {
-    state = {
-        cities: '',
-        movies: [],
-        selectedMovie: '',
-        showtimes: [],
-        showtimeId: '',
-        showtimeDate: '',
-        poster: '',
-        seats: {},
-        customer: {},
-        seatsTaken: [],
-        seatsSelected: [],
-        containerVisible: true,
-        // Viewing states
-        pageView: 0b0001
-    };
+class App extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            cities: '',
+            movies: [],
+            selectedMovie: '',
+            showtimes: [],
+            showtimeId: '',
+            showtimeDate: '',
+            poster: '',
+            seats: {},
+            customer: {},
+            seatsTaken: [],
+            seatsSelected: [],
+            containerVisible: true,
+            // Viewing states
+            pageView: 0b0001
+        };
+    }
 
 
     toggleVisibility = () => {
@@ -108,7 +111,6 @@ class App extends React.Component {
     };
 
     onReservationSubmit = async customer => {
-        // this.setState({ customer });
 
         await reservation.post(`/`, {
             customer,

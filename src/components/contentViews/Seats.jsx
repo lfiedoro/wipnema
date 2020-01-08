@@ -1,15 +1,19 @@
 import React from 'react';
 import PropType from 'prop-types';
 import {overflowDiv, rowStyles, selectedMovieStyle} from "./styles";
-import {dateFormatted, rowLetters, showTimeHourFormatted} from "./constants";
+import {dateFormatted, loading, rowLetters, showTimeHourFormatted} from "./constants";
 import IndividualSeat from "./IndividualSeat";
 
 class Seats extends React.Component {
-    state = {
-        seatsSelected: [],
-        seatsTaken: []
-    };
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            seatsSelected: [],
+            seatsTaken: [],
+            seatsBeingEdited: false
+        };
+    }
 
     formattedDate = () => {
         return (
@@ -21,17 +25,24 @@ class Seats extends React.Component {
 
 
     onSitSelect = (event, x, y) => {
+        this.setState({seatsBeingEdited: true});
         const seatSelected = {row: x, column: y};
 
         if (!this.state.seatsSelected.find(seat => seat.row === seatSelected.row && seat.column === seatSelected.column)) {
             this.setState({
                 seatsSelected: [...this.state.seatsSelected, seatSelected]
-            },() => this.props.onSelect(this.state.seatsSelected));
+            }, () => {
+                this.props.onSelect(this.state.seatsSelected);
+                this.setState({seatsBeingEdited: false});
+            });
         } else {
             const filteredSeatsTakenArray = this.state.seatsSelected.filter(seat => !(seat.row === seatSelected.row && seat.column === seatSelected.column));
             this.setState({
                 seatsSelected: [...filteredSeatsTakenArray]
-            }, () => this.props.onSelect(filteredSeatsTakenArray))
+            }, () => {
+                this.props.onSelect(filteredSeatsTakenArray);
+                this.setState({seatsBeingEdited: false});
+            })
         }
     };
 
@@ -75,6 +86,7 @@ class Seats extends React.Component {
     render() {
         return (
             <div>
+                {this.state.seatsBeingEdited ? (<div>{loading()}</div>) : null}
                 <div style={selectedMovieStyle(this.props)}>
                     <div className='shader bottom poster'>
                         <h2>{this.props.title}</h2>
@@ -82,6 +94,7 @@ class Seats extends React.Component {
                     </div>
                 </div>
                 <div style={overflowDiv}>
+
                     <table style={{borderCollapse: 'separate'}}>
                         <tbody>
                         {this.seatsGridDrawer()}

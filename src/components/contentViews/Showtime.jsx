@@ -4,10 +4,16 @@ import Chip from "@material-ui/core/Chip";
 import {showTimeHourFormatted} from "./constants";
 
 class Showtime extends React.Component {
-    state = {
-        showtimeId: '',
-        showtimeDate: ''
-    };
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            showtimeId: '',
+            showtimeDate: ''
+        };
+    }
+
+
 
     disabled = Date.now() > new Date(this.props.date);
 

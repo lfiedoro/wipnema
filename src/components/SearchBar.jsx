@@ -10,10 +10,13 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 class SearchBar extends React.Component {
 
-    state = {
-        term: '',
-        cities: []
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            term: '',
+            cities: []
+        };
+    }
 
 
     citiesItems = [];
@@ -65,7 +68,6 @@ class SearchBar extends React.Component {
             );
         })];
     };
-
 
     componentDidMount = async () => {
         const getCities = await this.props.getCities('');
