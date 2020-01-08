@@ -111,11 +111,12 @@ class App extends Component {
     };
 
     onReservationSubmit = async customer => {
+        this.setState({ customer });
 
         await reservation.post(`/`, {
             customer,
             showtimeId: this.state.showtimeId,
-            seats: this.state.seatsTaken
+            seats: this.state.seatsSelected
         })
             .then(res => console.log(res))
             .catch(err => console.log(err));
