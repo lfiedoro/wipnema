@@ -5,7 +5,7 @@ import reservation from '../api/reservation';
 
 import SearchBar from './SearchBar';
 import Content from "./Content";
-import {offPositionStyling, positionStyle} from "./contentViews/styles";
+import { offPositionStyling, positionStyle } from "./contentViews/styles";
 import SeatSelectedContainer from "./contentViews/SeatSelectedContainer";
 
 // "https://api.internationalshowtimes.com/v4/cities/?location=pl&query=gda"
@@ -104,16 +104,18 @@ class App extends React.Component {
     };
 
     onSeatSelect = (seatsSelected) => {
-        this.setState({seatsSelected: [...seatsSelected]});
+        this.setState({ seatsSelected: [...seatsSelected] });
+        console.log(seatsSelected);
+
     };
 
     onReservationSubmit = async customer => {
-        // this.setState({ customer });
+        this.setState({ customer });
 
         await reservation.post(`/`, {
             customer,
             showtimeId: this.state.showtimeId,
-            seats: this.state.seatsTaken
+            seats: this.state.seatsSelected
         })
             .then(res => console.log(res))
             .catch(err => console.log(err));
@@ -147,9 +149,9 @@ class App extends React.Component {
         return (
             <div>
                 <div>
-                    <SearchBar getCities={this.handleCityRequest} onSubmit={this.onSearchSubmit}/>
+                    <SearchBar getCities={this.handleCityRequest} onSubmit={this.onSearchSubmit} />
                     <div style={positionStyle} className='landscapeMob'>
-                        <div className="shader"/>
+                        <div className="shader" />
                         <Content
                             city={this.state.cities}
                             pageView={this.state.pageView}
@@ -167,7 +169,7 @@ class App extends React.Component {
                             onSitSelect={this.onSeatSelect}
                             onReservationSubmit={this.onReservationSubmit}
                         />
-                        <div className="shader bottom"/>
+                        <div className="shader bottom" />
                     </div>
                 </div>
                 {this.seatsSelectedContainerToggler()}
