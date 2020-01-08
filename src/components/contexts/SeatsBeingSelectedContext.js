@@ -4,7 +4,7 @@ export const SeatsBeingSelectedContext = createContext();
 
 class SeatsBeingSelectedContextProvider extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             seatsBeingSelected: false
         }
