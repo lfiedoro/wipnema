@@ -26,7 +26,6 @@ class Seats extends React.Component {
 
     onSitSelect = (event, x, y) => {
         const {seatsSelected, onSeatSelect, onSeatRemove} = this.context;
-
         const seatSelected = {row: x, column: y};
 
         if (!seatsSelected.find(seat => seat.row === seatSelected.row && seat.column === seatSelected.column)) {
@@ -58,11 +57,10 @@ class Seats extends React.Component {
     seatsGridDrawer = () => {
         const seats = [];
         this.createEmpty(seats);
-
         let key = 0;
+
         return seats.map((row, index) => {
             return (
-
                 <tr style={rowStyles} key={key++}>
                     <td className='gradientText'>
                         {rowLetters[index]}
@@ -76,7 +74,6 @@ class Seats extends React.Component {
     };
 
     render() {
-
         return (
             <div>
                 <div style={selectedMovieStyle(this.props)}>

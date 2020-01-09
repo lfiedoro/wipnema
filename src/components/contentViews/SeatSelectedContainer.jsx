@@ -41,6 +41,7 @@ class SeatSelectedContainer extends Component {
         )
     };
 
+
     seatContainer = () => {
         const {seatsSelected} = this.context;
         return (
@@ -49,9 +50,7 @@ class SeatSelectedContainer extends Component {
                      className='selectedSeatContainer animate'>
                     <div>
                         <div onClick={this.props.toggleVisibility}>
-                            <IconButton
-
-                                aria-label="delete">
+                            <IconButton aria-label="delete">
                                 <i style={this.props.containerVisible ? {transform: 'rotate(0deg)'} : {transform: 'rotate(180deg)'}}
                                    className="material-icons animate">
                                     expand_more
@@ -62,9 +61,7 @@ class SeatSelectedContainer extends Component {
                         </div>
                         {this.props.containerVisible ? this.seatsArray(seatsSelected) : null}
                     </div>
-                    <Tooltip
-                        title="Reserve selected seats"
-                    >
+                    <Tooltip title="Reserve selected seats">
                         <Button onClick={this.props.onSeatsConfirmation} variant="contained" color="secondary">
                             <i className="material-icons">
                                 event_seat

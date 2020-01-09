@@ -127,12 +127,13 @@ class App extends Component {
 
 
     render() {
-
         return (
             <div>
                 <SeatsBeingSelectedContextProvider>
                     <div>
-                        <SearchBar getCities={this.handleCityRequest} onSubmit={this.onSearchSubmit}/>
+                        <SearchBar getCities={this.handleCityRequest}
+                                   onSubmit={this.onSearchSubmit}
+                        />
                         <LoadingOverlay/>
                         <Content
                             city={this.state.cities}
