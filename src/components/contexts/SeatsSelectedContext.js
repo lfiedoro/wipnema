@@ -21,6 +21,10 @@ class SeatsSelectedContextProvider extends Component {
         this.setState({seatsSelected: [...filteredSeatsTakenArray]});
     };
 
+    clearSelectedSeats = () => {
+        this.setState({seatsSelected: []})
+    };
+
     render() {
         return (
             <SeatsSelectedContext.Provider
@@ -29,6 +33,7 @@ class SeatsSelectedContextProvider extends Component {
                     toggleSeatsBeingSelected: this.toggleSeatsBeingSelected,
                     onSeatSelect: this.onSeatSelect,
                     onSeatRemove: this.onSeatRemove,
+                    clearSelectedSeats: this.clearSelectedSeats
                 }}
             >
                 {this.props.children}

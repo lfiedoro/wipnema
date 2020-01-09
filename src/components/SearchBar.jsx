@@ -7,6 +7,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import {formStyles} from "./contentViews/styles";
 import Tooltip from "@material-ui/core/Tooltip";
+import {SeatsSelectedContext} from "./contexts/SeatsSelectedContext";
 
 class SearchBar extends React.Component {
 
@@ -18,11 +19,14 @@ class SearchBar extends React.Component {
         };
     }
 
+    static contextType = SeatsSelectedContext;
 
     citiesItems = [];
 
     onFormSubmit = (event) => {
         event.preventDefault();
+        const {clearSelectedSeats} = this.context;
+        clearSelectedSeats();
         this.props.onSubmit(this.state.term);
     };
 
