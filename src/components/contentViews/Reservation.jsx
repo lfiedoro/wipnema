@@ -4,13 +4,12 @@ import PropType from 'prop-types';
 
 
 class Reservation extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
+
+    state = {
             name: '',
             email: ''
         };
-    }
+
 
 
 
@@ -25,7 +24,6 @@ class Reservation extends React.Component {
     render() {
         return (
             <form onSubmit={this.onReservationSubmit}>
-                {console.log(this.props.seatsSelected)}
                 <h2>Reservation for</h2>
                 <h3>Title: {this.props.title}</h3>
                 <h3>Date: {this.props.date}</h3>
@@ -46,7 +44,6 @@ Reservation.propTypes = {
     title: PropType.string,
     date: PropType.string,
     id: PropType.string,
-    seatsSelected: PropType.array,
 
     onReservationSubmit: PropType.func
 };

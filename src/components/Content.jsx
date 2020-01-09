@@ -7,13 +7,17 @@ import Seats from "./contentViews/Seats";
 import Reservation from "./contentViews/Reservation";
 import {loading} from "./contentViews/constants";
 import {contentWrapper, positionStyle} from "./contentViews/styles";
+import {SeatsBeingSelectedContext} from "./contexts/SeatsBeingSelectedContext";
 
 class Content extends Component {
+    static contextType = SeatsBeingSelectedContext;
+
     render() {
+        const {seatsSelected} = this.context;
         return (
             <div style={positionStyle} className='landscapeMob'>
                 <div className="shader"/>
-                <div className={'maxHeight'} style={contentWrapper(this.props.selectedSeatsCount)}>
+                <div className='maxHeight' style={contentWrapper(seatsSelected.length)}>
                     {!this.props.pageView ?
                         loading()
                         : null}
@@ -36,7 +40,6 @@ class Content extends Component {
                     {this.props.pageView & 0b0100 ?
                         <Seats
                             seats={this.props.seats}
-                            onSelect={this.props.onSitSelect}
                             poster={this.props.poster}
                             date={this.props.showtimeDate}
                             title={this.props.selectedMovie}
@@ -73,8 +76,6 @@ Content.propTypes = {
 
     onMovieSelect: PropType.func,
     onShowtimeSelect: PropType.func,
-    onSitSelect: PropType.func,
-    selectedSeatsCount: PropType.number,
     onReservationSubmit: PropType.func
 };
 

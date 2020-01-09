@@ -5,8 +5,10 @@ $theme-blue-accent: rgba(126, 193, 209, 1);
 $theme-blue-darker: rgb(77, 133, 149);
 $theme-dark: rgba(24, 30, 37, 1);
 $theme-gray: rgba(39, 41, 50, 1);
+$theme-gray-light: rgb(197, 204, 198);
 $theme-light: rgba(244, 247, 190, 1);
 $theme-green-accent: rgba(229, 247, 125, 1);
+$theme-green-darker: rgb(186, 200, 103);
 $white: rgba(255, 255, 255, 1);
 
 
@@ -195,13 +197,47 @@ h1, h2, h3, h4, h5 {
 
       }
 
+      #seatsTable {
+        button {
+          min-width: 35px;
+          padding: 10px;
+          border: 0;
+          border-radius: 10px;
+          background: $theme-blue-accent;
+          color: $theme-gray;
+          outline: 0;
+
+          &.selected {
+            background: $theme-green-darker;
+          }
+
+          &.disabled {
+            background: $theme-gray-light;
+            @include opacity(.7);
+          }
+
+        }
+      }
+
       .animate {
         @include transition(all .3s ease);
       }
 
       .landscapeMob {
         @include breakpoint-mobile-land {
-          height: 70% !important;
+          height: 80% !important;
+        }
+      }
+
+      .landscapeContainer {
+        @include breakpoint-mobile-land {
+          bottom: 25px !important;
+        }
+      }
+
+      .landscapeContent {
+        @include breakpoint-mobile-land {
+          //margin-bottom: 75px !important;
         }
       }
 

@@ -55,6 +55,8 @@ export const loadingOverlay = {
 };
 
 export const contentWrapper = (selectedSeatsCount) => {
+    const landscapeView = (window.innerHeight <= 420 && (window.innerWidth > 419 && window.innerWidth < 834)) ? '75px' : '55px';
+
     return {
         height: '100%',
         width: '95%',
@@ -62,7 +64,7 @@ export const contentWrapper = (selectedSeatsCount) => {
         zIndex: 2,
         boxSizing: 'border-box',
         overflowY: 'auto',
-        marginBottom: selectedSeatsCount ? '55px' : 'unset'
+        marginBottom: selectedSeatsCount ? landscapeView : 'unset'
     }
 };
 

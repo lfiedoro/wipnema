@@ -9,8 +9,7 @@ class Seats extends React.Component {
 
 
     state = {
-        seatsSelected: [],
-        seatsTaken: [],
+        seatsTaken: []
     };
 
     static contextType = SeatsBeingSelectedContext;
@@ -26,31 +25,19 @@ class Seats extends React.Component {
 
 
     onSitSelect = (event, x, y) => {
-        const {toggleSeatsBeingSelected} = this.context;
-        toggleSeatsBeingSelected(true);
+        const {seatsSelected, onSeatSelect, onSeatRemove} = this.context;
 
         const seatSelected = {row: x, column: y};
 
-        if (!this.state.seatsSelected.find(seat => seat.row === seatSelected.row && seat.column === seatSelected.column)) {
-            this.setState({
-                seatsSelected: [...this.state.seatsSelected, seatSelected]
-            }, () => {
-                // toggleSeatsBeingSelected(false);
-                this.props.onSelect(this.state.seatsSelected)
-            });
+        if (!seatsSelected.find(seat => seat.row === seatSelected.row && seat.column === seatSelected.column)) {
+            onSeatSelect(seatSelected)
         } else {
-            const filteredSeatsTakenArray = this.state.seatsSelected.filter(seat => !(seat.row === seatSelected.row && seat.column === seatSelected.column));
-            this.setState({
-                seatsSelected: [...filteredSeatsTakenArray]
-            }, () => {
-                // toggleSeatsBeingSelected(false);
-
-                this.props.onSelect(filteredSeatsTakenArray)
-            })
+            onSeatRemove(seatSelected)
         }
     };
 
     createEmpty(seats) {
+        const {seatsSelected, toggleSeatsBeingSelected} = this.context;
         for (let x = 0; x < this.props.seats.rowLength; x++) {
             seats[x] = [];
             for (let y = 0; y < this.props.seats.rows; y++) {
@@ -59,8 +46,9 @@ class Seats extends React.Component {
                         x={x}
                         y={y}
                         seatsTaken={this.state.seatsTaken}
-                        seatsSelected={this.state.seatsSelected}
+                        seatsSelected={seatsSelected}
                         onSitSelect={this.onSitSelect}
+                        toggleSeatsBeingSelected={toggleSeatsBeingSelected}
                     />
                 );
             }
@@ -98,7 +86,7 @@ class Seats extends React.Component {
                     </div>
                 </div>
                 <div style={overflowDiv}>
-                    <table style={{borderCollapse: 'separate'}}>
+                    <table id='seatsTable' style={{borderCollapse: 'separate'}}>
                         <tbody>
                         {this.seatsGridDrawer()}
                         </tbody>
@@ -120,7 +108,6 @@ Seats.propTypes = {
     seats: PropType.object,
     title: PropType.string,
     poster: PropType.string,
-    onSelect: PropType.func
 };
 
 export default Seats;

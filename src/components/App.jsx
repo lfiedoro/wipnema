@@ -5,7 +5,6 @@ import reservation from '../api/reservation';
 
 import SearchBar from './SearchBar';
 import Content from "./Content";
-import {offPositionStyling} from "./contentViews/styles";
 import SeatSelectedContainer from "./contentViews/SeatSelectedContainer";
 import SeatsBeingSelectedContextProvider from "./contexts/SeatsBeingSelectedContext";
 import LoadingOverlay from "./contentViews/LoadingOverlay";
@@ -26,7 +25,6 @@ class App extends Component {
             seats: {},
             customer: {},
             seatsTaken: [],
-            seatsSelected: [],
             containerVisible: true,
             // Viewing states
             pageView: 0b0001
@@ -108,9 +106,6 @@ class App extends Component {
         });
     };
 
-    onSeatSelect = (seatsSelected) => {
-        this.setState({seatsSelected: [...seatsSelected]});
-    };
 
     onReservationSubmit = async customer => {
         this.setState({customer});
@@ -130,31 +125,14 @@ class App extends Component {
         });
     };
 
-    seatsSelectedContainerToggler = () => {
-        const selectedCount = this.state.seatsSelected.length;
-        return (
-            <div className='animate' style={offPositionStyling(selectedCount)}>
-                {selectedCount && this.state.pageView !== 0b00001000 ?
-                    <SeatSelectedContainer
-                        seatsSelected={this.state.seatsSelected}
-                        containerVisible={this.state.containerVisible}
-                        toggleVisibility={this.toggleVisibility}
-                        onSeatsConfirmation={this.onSeatsConfirmation}
-                    />
-                    : null
-                }
-            </div>
-        );
-    };
-
 
     render() {
 
         return (
             <div>
-                <div>
-                    <SearchBar getCities={this.handleCityRequest} onSubmit={this.onSearchSubmit}/>
-                    <SeatsBeingSelectedContextProvider>
+                <SeatsBeingSelectedContextProvider>
+                    <div>
+                        <SearchBar getCities={this.handleCityRequest} onSubmit={this.onSearchSubmit}/>
                         <LoadingOverlay/>
                         <Content
                             city={this.state.cities}
@@ -166,16 +144,18 @@ class App extends Component {
                             showtimeDate={this.state.showtimeDate}
                             showtimeId={this.state.showtimeId}
                             poster={this.state.poster}
-                            selectedSeatsCount={this.state.seatsSelected.length}
-                            seatsSelected={this.state.seatsSelected}
                             onMovieSelect={this.onMovieSelect}
                             onShowtimeSelect={this.onShowtimeSelect}
-                            onSitSelect={this.onSeatSelect}
                             onReservationSubmit={this.onReservationSubmit}
                         />
-                    </SeatsBeingSelectedContextProvider>
-                </div>
-                {this.seatsSelectedContainerToggler()}
+                    </div>
+                    <SeatSelectedContainer
+                        containerVisible={this.state.containerVisible}
+                        toggleVisibility={this.toggleVisibility}
+                        onSeatsConfirmation={this.onSeatsConfirmation}
+                        pageView={this.state.pageView}
+                    />
+                </SeatsBeingSelectedContextProvider>
             </div>
         );
     }

@@ -1,66 +1,90 @@
-import React from "react";
+import React, {Component} from "react";
 import Button from "@material-ui/core/Button";
 import Tooltip from "@material-ui/core/Tooltip";
 import PropType from "prop-types";
 import {rowLetters} from "./constants";
 import Chip from "@material-ui/core/Chip";
 import IconButton from "@material-ui/core/IconButton";
+import {offPositionStyling} from "./styles";
+import {SeatsBeingSelectedContext} from "../contexts/SeatsBeingSelectedContext";
 
-const SeatSelectedContainer = (props) => {
+class SeatSelectedContainer extends Component {
 
-    const seatsSelected = props.seatsSelected.map(seat => {
-        const seatId = `${rowLetters[seat.row]}${seat.column + 1}`;
-        return (
-            <Chip
-                style={{marginRight: '5px'}}
-                key={seatId}
-                label={seatId}
-                title={seatId}
-            />
-        );
-    });
-    const seatsArray = () => {
+    state = {
+        seatsSelected: []
+    };
+
+    static contextType = SeatsBeingSelectedContext;
+
+
+    seatsSelected = () => {
+        const {onSeatRemove, seatsSelected} = this.context;
+        return seatsSelected.map(seat => {
+            const seatId = `${rowLetters[seat.row]}${seat.column + 1}`;
+            return (
+                <Chip
+                    style={{marginRight: '5px'}}
+                    onDelete={() => onSeatRemove(seat)}
+                    key={seatId}
+                    label={seatId}
+                    title={seatId}
+                />
+            );
+        })
+    };
+
+    seatsArray = () => {
         return (
             <div className='seatsArray'>
-                {seatsSelected}
+                {this.seatsSelected()}
             </div>
         )
     };
 
-    return (
-        <div style={props.containerVisible ? {maxHeight: '100%'} : {maxHeight: '90px'}}
-             className='selectedSeatContainer animate'>
-            <div>
-                <div onClick={props.toggleVisibility}>
-                    <IconButton
+    seatContainer = () => {
+        const {seatsSelected} = this.context;
+        return (
+            <div className='animate landscapeContainer' style={offPositionStyling(seatsSelected.length)}>
+                <div style={this.props.containerVisible ? {maxHeight: '100%'} : {maxHeight: '90px'}}
+                     className='selectedSeatContainer animate'>
+                    <div>
+                        <div onClick={this.props.toggleVisibility}>
+                            <IconButton
 
-                        aria-label="delete">
-                        <i style={props.containerVisible ? {transform: 'rotate(0deg)'} : {transform: 'rotate(180deg)'}}
-                           className="material-icons animate">
-                            expand_more
-                        </i>
-                    </IconButton>
-                    <h3 className='gradientText' style={{fontSize: '1rem', cursor: 'pointer'}}>Selected
-                        seats {props.containerVisible ? ':' : `(${props.seatsSelected.length})`}</h3>
+                                aria-label="delete">
+                                <i style={this.props.containerVisible ? {transform: 'rotate(0deg)'} : {transform: 'rotate(180deg)'}}
+                                   className="material-icons animate">
+                                    expand_more
+                                </i>
+                            </IconButton>
+                            <h3 className='gradientText' style={{fontSize: '1rem', cursor: 'pointer'}}>Selected
+                                seats {this.props.containerVisible ? ':' : `(${seatsSelected.length})`}</h3>
+                        </div>
+                        {this.props.containerVisible ? this.seatsArray(seatsSelected) : null}
+                    </div>
+                    <Tooltip
+                        title="Reserve selected seats"
+                    >
+                        <Button onClick={this.props.onSeatsConfirmation} variant="contained" color="secondary">
+                            <i className="material-icons">
+                                event_seat
+                            </i>
+                        </Button>
+                    </Tooltip>
                 </div>
-                {props.containerVisible ? seatsArray() : null}
             </div>
-            <Tooltip
-                title="Reserve selected seats"
-            >
-                <Button onClick={props.onSeatsConfirmation} variant="contained" color="secondary">
-                    <i className="material-icons">
-                        event_seat
-                    </i>
-                </Button>
-            </Tooltip>
-        </div>
-    );
+        );
+    };
 
-};
+
+    render() {
+        const {seatsSelected} = this.context;
+        return seatsSelected.length && this.props.pageView !== 0b00001000 ? this.seatContainer() : null;
+    }
+}
 
 SeatSelectedContainer.propTypes = {
-    seatsSelected: PropType.array,
+    pageView: PropType.number,
     containerVisible: PropType.bool,
     toggleVisibility: PropType.func,
     onSeatsConfirmation: PropType.func
