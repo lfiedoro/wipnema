@@ -46,7 +46,7 @@ class Content extends Component {
                             title={this.props.selectedMovie}
                             date={this.props.showtimeDate}
                             id={this.props.showtimeId}
-                            seatsSelected={this.props.seatsSelected}
+                            poster={this.props.poster}
                             onReservationSubmit={this.props.onReservationSubmit}
                         />
                     );

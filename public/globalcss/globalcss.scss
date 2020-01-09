@@ -352,11 +352,11 @@ h1, h2, h3, h4, h5 {
           > div {
             @include breakpoint-desktop {
               margin: 5px !important;
-              flex-basis: 32%;
+              flex-basis: 30%;
             }
             @include breakpoint-tablet-por {
               margin: 5px !important;
-              flex-basis: 32%;
+              flex-basis: 30%;
             }
           }
         }
