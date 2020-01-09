@@ -48,7 +48,7 @@ export const loadingOverlay = {
     alignContent: 'center',
     alignItems: 'center',
     flexFlow: 'row nowrap',
-    background: 'rgba(39, 41, 50, .5)',
+    background: 'rgba(39, 41, 50, .1)',
     zIndex: 3,
     width: '100%',
     height: '90%'

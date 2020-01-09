@@ -1,23 +1,18 @@
-import React, {Component} from "react";
+import React from "react";
 import {loadingOverlay} from "./styles";
 import {loading} from "./constants";
-import {SeatsBeingSelectedContext} from "../contexts/SeatsBeingSelectedContext";
 
-class LoadingOverlay extends Component {
+const LoadingOverlay = (props) => {
 
-    static contextType = SeatsBeingSelectedContext;
 
-    loadingOverlayDiv = (
+    const loadingOverlayDiv = (
         <div style={loadingOverlay} className='animate'>
             <div>{loading()}</div>
         </div>
     );
 
+    return !props.pageView ? loadingOverlayDiv : null
 
-    render() {
-        const {seatsBeingSelected} = this.context;
-        return seatsBeingSelected ? this.loadingOverlayDiv : null
-    }
-}
+};
 
 export default LoadingOverlay;

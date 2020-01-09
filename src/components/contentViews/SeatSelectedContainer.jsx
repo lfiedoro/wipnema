@@ -6,7 +6,7 @@ import {rowLetters} from "./constants";
 import Chip from "@material-ui/core/Chip";
 import IconButton from "@material-ui/core/IconButton";
 import {offPositionStyling} from "./styles";
-import {SeatsBeingSelectedContext} from "../contexts/SeatsBeingSelectedContext";
+import {SeatsSelectedContext} from "../contexts/SeatsSelectedContext";
 
 class SeatSelectedContainer extends Component {
 
@@ -14,7 +14,7 @@ class SeatSelectedContainer extends Component {
         seatsSelected: []
     };
 
-    static contextType = SeatsBeingSelectedContext;
+    static contextType = SeatsSelectedContext;
 
 
     seatsSelected = () => {

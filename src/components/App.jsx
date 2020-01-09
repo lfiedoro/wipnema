@@ -6,7 +6,7 @@ import reservation from '../api/reservation';
 import SearchBar from './SearchBar';
 import Content from "./Content";
 import SeatSelectedContainer from "./contentViews/SeatSelectedContainer";
-import SeatsBeingSelectedContextProvider from "./contexts/SeatsBeingSelectedContext";
+import SeatsSelectedContextProvider from "./contexts/SeatsSelectedContext";
 import LoadingOverlay from "./contentViews/LoadingOverlay";
 
 
@@ -129,12 +129,12 @@ class App extends Component {
     render() {
         return (
             <div>
-                <SeatsBeingSelectedContextProvider>
+                <SeatsSelectedContextProvider>
                     <div>
                         <SearchBar getCities={this.handleCityRequest}
                                    onSubmit={this.onSearchSubmit}
                         />
-                        <LoadingOverlay/>
+                        <LoadingOverlay pageView={this.state.pageView}/>
                         <Content
                             city={this.state.cities}
                             pageView={this.state.pageView}
@@ -156,7 +156,7 @@ class App extends Component {
                         onSeatsConfirmation={this.onSeatsConfirmation}
                         pageView={this.state.pageView}
                     />
-                </SeatsBeingSelectedContextProvider>
+                </SeatsSelectedContextProvider>
             </div>
         );
     }

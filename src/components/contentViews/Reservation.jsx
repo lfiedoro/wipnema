@@ -1,8 +1,6 @@
 import React from 'react';
 import PropType from 'prop-types';
 
-
-
 class Reservation extends React.Component {
 
     state = {

@@ -1,10 +1,9 @@
 import React, {Component, createContext} from "react";
 
-export const SeatsBeingSelectedContext = createContext();
+export const SeatsSelectedContext = createContext();
 
-class SeatsBeingSelectedContextProvider extends Component {
+class SeatsSelectedContextProvider extends Component {
     state = {
-        seatsBeingSelected: false,
         seatsSelected: []
     };
 
@@ -24,18 +23,18 @@ class SeatsBeingSelectedContextProvider extends Component {
 
     render() {
         return (
-            <SeatsBeingSelectedContext.Provider
+            <SeatsSelectedContext.Provider
                 value={{
                     ...this.state,
                     toggleSeatsBeingSelected: this.toggleSeatsBeingSelected,
                     onSeatSelect: this.onSeatSelect,
-                    onSeatRemove: this.onSeatRemove
+                    onSeatRemove: this.onSeatRemove,
                 }}
             >
                 {this.props.children}
-            </SeatsBeingSelectedContext.Provider>
+            </SeatsSelectedContext.Provider>
         );
     }
 }
 
-export default SeatsBeingSelectedContextProvider;
+export default SeatsSelectedContextProvider;

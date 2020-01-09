@@ -3,7 +3,7 @@ import PropType from 'prop-types';
 import {overflowDiv, rowStyles, selectedMovieStyle} from "./styles";
 import {dateFormatted, rowLetters, showTimeHourFormatted} from "./constants";
 import IndividualSeat from "./IndividualSeat";
-import {SeatsBeingSelectedContext} from "../contexts/SeatsBeingSelectedContext";
+import {SeatsSelectedContext} from "../contexts/SeatsSelectedContext";
 
 class Seats extends React.Component {
 
@@ -12,7 +12,7 @@ class Seats extends React.Component {
         seatsTaken: []
     };
 
-    static contextType = SeatsBeingSelectedContext;
+    static contextType = SeatsSelectedContext;
 
 
     formattedDate = () => {
