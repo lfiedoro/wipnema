@@ -30,9 +30,6 @@ h1, h2, h3, h4, h5 {
   @include no-select;
 }
 
-#root {
-  border-bottom: $theme-blue-accent solid 2px;
-}
 
 .shader {
   @include gradient($theme-dark, rgba(0, 0, 0, 0), vertical);
@@ -229,12 +226,25 @@ h1, h2, h3, h4, h5 {
       }
 
       .landscapeMob {
+        @include breakpoint-desktop {
+          height: 85% !important;
+        }
         @include breakpoint-mobile-land {
           height: 80% !important;
+        }
+        @include breakpoint-tablet-por {
+          height: 83% !important;
         }
       }
 
       .landscapeContainer {
+        bottom: 70px !important;
+        @include breakpoint-tablet-por {
+          bottom: 60px;
+        }
+        @include breakpoint-mobile {
+          bottom: 5px !important;
+        }
         @include breakpoint-mobile-land {
           bottom: 25px !important;
         }
@@ -331,7 +341,7 @@ h1, h2, h3, h4, h5 {
       }
 
       .maxHeight {
-        max-height: 75vh;
+        //max-height: 75vh;
         position: relative;
         top: 3px;
         @include breakpoint-mobile {

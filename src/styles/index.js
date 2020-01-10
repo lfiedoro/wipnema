@@ -66,7 +66,7 @@ export const contentWrapper = (selectedSeatsCount, pageView) => {
     return {
         height: '100%',
         width: '95%',
-        padding: '10px 0',
+        padding: '20px 0',
         zIndex: 2,
         boxSizing: 'border-box',
         overflowY: 'auto',
