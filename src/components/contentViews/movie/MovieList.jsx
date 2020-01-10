@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import seat from './../../../img/seat.svg';
+import noMovie from './../../../img/no-movie.svg'
 
 import Movie from './Movie';
 
@@ -28,7 +30,7 @@ const MovieList = (props) => {
             return (
                 <div style={{textAlign: 'center'}}>
                     <img
-                        src="/img/seat.svg"
+                        src={seat}
                         className="startImage"
                         alt="Search a city to look for movies"
                     />
@@ -42,7 +44,7 @@ const MovieList = (props) => {
             return (
                 <div style={{textAlign: 'center'}}>
                     <img
-                        src="/img/no-movie.svg"
+                        src={noMovie}
                         className="startImage"
                         alt="Search a city to look for movies"
                     />

@@ -7,6 +7,7 @@ import Seats from "./seats/Seats";
 import Reservation from "./reservation/Reservation";
 import {contentWrapper, positionStyle} from "../../styles";
 import {SeatsSelectedContext} from "../contexts/SeatsSelectedContext";
+import ReservationSuccess from "./reservation/ReservationSuccess";
 
 class Content extends Component {
     static contextType = SeatsSelectedContext;
@@ -49,8 +50,13 @@ class Content extends Component {
                             date={this.props.showtimeDate}
                             id={this.props.showtimeId}
                             poster={this.props.poster}
+                            onReservationSuccess={this.props.onReservationSuccess}
                             seatsSelected={seatsSelected}
                         />
+                    );
+                case 0b00001100:
+                    return (
+                        <ReservationSuccess/>
                     );
                 default:
                     return null;
@@ -87,6 +93,7 @@ Content.propTypes = {
     showtimeId: PropType.string,
 
     onMovieSelect: PropType.func,
+    onReservationSuccess: PropType.func,
     onShowtimeSelect: PropType.func,
 };
 

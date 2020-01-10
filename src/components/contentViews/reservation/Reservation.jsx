@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropType from 'prop-types';
 import {reservationForm, selectedMovieStyle} from "../../../styles";
 import {dateFormatted, rowLetters, showTimeHourFormatted} from "../constants";
 import Chip from "@material-ui/core/Chip";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
@@ -12,10 +14,12 @@ import reservation from "../../../api/reservation";
 import * as Yup from 'yup';
 import {Formik} from "formik";
 
+const Alert = (props) => {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+};
+
+
 const Reservation = (props) => {
-
-    const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
-
 
     const formattedDate = () => {
         return (
@@ -48,6 +52,23 @@ const Reservation = (props) => {
         )
     };
 
+    const [open, setOpen] = React.useState(false);
+
+    const handleOpenError = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+
+
+    };
+
+
     const baseProps = props;
     return (
         <>
@@ -58,15 +79,17 @@ const Reservation = (props) => {
                     setSubmitting(true);
 
                     await reservation.post(`/`, {
-                        values,
+                        customer: values,
                         showtimeId: baseProps.id,
                         seats: baseProps.seatsSelected
                     })
                         .then(res => {
-                            setSubmitionCompleted(true);
-                            console.log(res);
+                            props.onReservationSuccess()
                         })
-                        .catch(err => console.log(err))
+                        .catch(err => {
+                            handleOpenError();
+                            console.log(err);
+                        })
                 }}
 
                 validationSchema={Yup.object().shape({
@@ -171,6 +194,12 @@ const Reservation = (props) => {
                                     Reserve your seats
                                 </Button>
                             </form>
+
+                            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                                <Alert onClose={handleClose} severity="error">
+                                    There was a problem while sending your reservation. Try again.
+                                </Alert>
+                            </Snackbar>
                         </div>
                     );
                 }}
@@ -185,7 +214,8 @@ Reservation.propTypes = {
     title: PropType.string,
     date: PropType.string,
     id: PropType.string,
-    seatsSelected: PropType.array
+    seatsSelected: PropType.array,
+    onReservationSuccess: PropType.func
 };
 
 export default Reservation;

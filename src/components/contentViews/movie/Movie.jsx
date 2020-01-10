@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
+import noPoster from './../../../img/noposter.jpg'
 
 class Movie extends React.Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class Movie extends React.Component {
     };
 
     moviePosterChecker = () => {
-        return (!this.props.poster) ? '/img/noposter.jpg' : this.props.poster;
+        return (!this.props.poster) ? noPoster : this.props.poster;
     };
 
     render() {

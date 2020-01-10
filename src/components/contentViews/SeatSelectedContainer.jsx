@@ -72,7 +72,7 @@ class SeatSelectedContainer extends Component {
 
     render() {
         const {seatsSelected} = this.context;
-        return seatsSelected.length && this.props.pageView !== 0b00001000 ? this.seatContainer() : null;
+        return seatsSelected.length && this.props.pageView === 0b0100 ? this.seatContainer() : null;
     }
 }
 

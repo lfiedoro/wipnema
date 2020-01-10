@@ -215,6 +215,7 @@ h1, h2, h3, h4, h5 {
 
           &.disabled {
             background: $theme-gray-light;
+            cursor: initial;
             @include opacity(.7);
           }
 
@@ -277,7 +278,7 @@ h1, h2, h3, h4, h5 {
         @include breakpoint-mobile {
           width: 70%;
         }
-        width: 40%;
+        width: 30%;
       }
 
       #root, #root > div, #root > div > div:first-of-type {

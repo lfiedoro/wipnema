@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {CSSTransition} from 'react-transition-group';
 import '../styles/viewAnimation.css'
+import '../styles/globalcss/globalcss.css'
 
 import showtimes from '../api/showtimes';
 import reservation from '../api/reservation';
@@ -32,7 +33,6 @@ class App extends Component {
             pageView: 0b0001
         };
     }
-
 
     toggleVisibility = () => {
         this.setState(prevState => ({
@@ -108,10 +108,25 @@ class App extends Component {
         });
     };
 
-
     onSeatsConfirmation = () => {
         this.setState({
             pageView: 0b00001000
+        });
+    };
+
+    onReservationSuccess = () => {
+        this.setState({
+            pageView: 0b00001100,
+            cities: '',
+            movies: [],
+            selectedMovie: '',
+            showtimes: [],
+            showtimeId: '',
+            showtimeDate: '',
+            poster: '',
+            seats: {},
+            customer: {},
+            seatsTaken: []
         });
     };
 
@@ -125,7 +140,6 @@ class App extends Component {
                                    onSubmit={this.onSearchSubmit}
                         />
                         <LoadingOverlay pageView={this.state.pageView}/>
-                        {/*<SwitchTransition>*/}
                         <CSSTransition
                             in={this.state.pageView !== 0b0000}
                             appear={true}
@@ -142,11 +156,11 @@ class App extends Component {
                                 showtimeDate={this.state.showtimeDate}
                                 showtimeId={this.state.showtimeId}
                                 poster={this.state.poster}
+                                onReservationSuccess={this.onReservationSuccess}
                                 onMovieSelect={this.onMovieSelect}
                                 onShowtimeSelect={this.onShowtimeSelect}
                             />
                         </CSSTransition>
-                        {/*</SwitchTransition>*/}
                     </div>
                     <SeatSelectedContainer
                         containerVisible={this.state.containerVisible}
