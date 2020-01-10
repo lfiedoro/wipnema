@@ -53,12 +53,12 @@ const Reservation = (props) => {
         <>
             <Formik
                 initialValues={{email: '', name: ''}}
-                onSubmit={async (values, {setSubmitting}) => {
+                onSubmit={async (customer, {setSubmitting}) => {
 
                     setSubmitting(true);
 
                     await reservation.post(`/`, {
-                        values,
+                        customer,
                         showtimeId: baseProps.id,
                         seats: baseProps.seatsSelected
                     })
