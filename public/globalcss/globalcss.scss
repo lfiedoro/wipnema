@@ -30,6 +30,9 @@ h1, h2, h3, h4, h5 {
   @include no-select;
 }
 
+#root {
+  border-bottom: $theme-blue-accent solid 2px;
+}
 
 .shader {
   @include gradient($theme-dark, rgba(0, 0, 0, 0), vertical);
@@ -43,7 +46,7 @@ h1, h2, h3, h4, h5 {
   &.bottom {
     @include positionb(-5px, 0);
     @include gradient(rgba(0, 0, 0, 0), $theme-dark, vertical);
-    border-bottom: $theme-blue-accent solid 2px;
+
     top: unset;
   }
 
@@ -55,6 +58,7 @@ h1, h2, h3, h4, h5 {
     box-sizing: border-box;
     justify-content: center;
     flex-flow: column nowrap;
+    border-bottom: $theme-blue-accent solid 2px;
 
     h2 {
       font-size: 1.2rem;

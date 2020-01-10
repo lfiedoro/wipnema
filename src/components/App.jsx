@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {CSSTransition} from 'react-transition-group';
+import '../styles/viewAnimation.css'
 
 import showtimes from '../api/showtimes';
 import reservation from '../api/reservation';
@@ -123,19 +125,28 @@ class App extends Component {
                                    onSubmit={this.onSearchSubmit}
                         />
                         <LoadingOverlay pageView={this.state.pageView}/>
-                        <Content
-                            city={this.state.cities}
-                            pageView={this.state.pageView}
-                            movies={this.state.movies}
-                            showtimes={this.state.showtimes}
-                            selectedMovie={this.state.selectedMovie}
-                            seats={this.state.seats}
-                            showtimeDate={this.state.showtimeDate}
-                            showtimeId={this.state.showtimeId}
-                            poster={this.state.poster}
-                            onMovieSelect={this.onMovieSelect}
-                            onShowtimeSelect={this.onShowtimeSelect}
-                        />
+                        {/*<SwitchTransition>*/}
+                        <CSSTransition
+                            in={this.state.pageView !== 0b0000}
+                            appear={true}
+                            timeout={300}
+                            classNames="view"
+                        >
+                            <Content
+                                city={this.state.cities}
+                                pageView={this.state.pageView}
+                                movies={this.state.movies}
+                                showtimes={this.state.showtimes}
+                                selectedMovie={this.state.selectedMovie}
+                                seats={this.state.seats}
+                                showtimeDate={this.state.showtimeDate}
+                                showtimeId={this.state.showtimeId}
+                                poster={this.state.poster}
+                                onMovieSelect={this.onMovieSelect}
+                                onShowtimeSelect={this.onShowtimeSelect}
+                            />
+                        </CSSTransition>
+                        {/*</SwitchTransition>*/}
                     </div>
                     <SeatSelectedContainer
                         containerVisible={this.state.containerVisible}
