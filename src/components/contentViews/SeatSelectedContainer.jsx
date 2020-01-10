@@ -10,10 +10,6 @@ import {SeatsSelectedContext} from "../contexts/SeatsSelectedContext";
 
 class SeatSelectedContainer extends Component {
 
-    state = {
-        seatsSelected: []
-    };
-
     static contextType = SeatsSelectedContext;
 
 
@@ -44,7 +40,6 @@ class SeatSelectedContainer extends Component {
 
     seatContainer = () => {
         const {seatsSelected} = this.context;
-        const seatsCount = seatsSelected.length;
         return (
             <div className='animate landscapeContainer' style={offPositionStyling(seatsSelected.length)}>
                 <div style={this.props.containerVisible ? {maxHeight: '100%'} : {maxHeight: '90px'}}
@@ -58,7 +53,7 @@ class SeatSelectedContainer extends Component {
                                 </i>
                             </IconButton>
                             <h3 className='gradientText' style={{fontSize: '1rem', cursor: 'pointer'}}>Selected
-                                seats {this.props.containerVisible ? ':' : `(${seatsCount})`}</h3>
+                                seats</h3>
                         </div>
                         {this.props.containerVisible ? this.seatsArray(seatsSelected) : null}
                     </div>

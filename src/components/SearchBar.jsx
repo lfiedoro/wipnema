@@ -15,7 +15,8 @@ class SearchBar extends React.Component {
         super(props);
         this.state = {
             term: '',
-            cities: []
+            cities: [],
+            isError: false
         };
     }
 
@@ -32,7 +33,8 @@ class SearchBar extends React.Component {
 
     handleFindCurrentLocation = () => {
 
-        navigator.geolocation.getCurrentPosition(position => {
+        const successfulyLocated = (position) => {
+            this.setState({isError: false});
             const _ = require('lodash');
 
             const fractionDigit = 3;
@@ -52,7 +54,17 @@ class SearchBar extends React.Component {
 
             const closest = _.sortBy(proximity, ['lat', 'lon'])[0].id;
             this.setState({term: closest});
-        });
+        };
+
+        const errorLocating = () => {
+            this.setState({isError: true})
+        };
+
+        navigator.geolocation.getCurrentPosition(position => {
+                successfulyLocated(position);
+            },
+            () => errorLocating()
+        );
 
 
     };
@@ -82,24 +94,33 @@ class SearchBar extends React.Component {
 
     render() {
         this.handlePopulateSelect();
+        const tooltipResolverBasedOnError = this.state.isError ? 'Seems there was a trouble while getting your location, ' +
+            'either enable geolocation in your browser or try selecting your city manually' : 'Select city based on your current location';
+        const styleResolverBasedOnError = this.state.isError ? {
+            marginRight: '5px',
+            background: 'rgb(247,63,85)',
+            color: '#ffffff'
+        } : {marginRight: '5px'};
+        const iconResolverBasedOnError = this.state.isError ? 'location_disabled' : 'my_location';
+
         return (
             <div>
                 <form>
                     <div style={formStyles} className="formClass">
                         <Tooltip
-                            title="Select city based on your current location"
+                            title={tooltipResolverBasedOnError}
                         >
                             <span>
                             <Button
                                 disabled={!this.citiesItems.length}
                                 onClick={this.handleFindCurrentLocation}
-                                style={{marginRight: '5px'}}
+                                style={styleResolverBasedOnError}
                                 variant="contained"
                                 size={"large"}
-                                color="primary"
+                                color='primary'
                             >
                                 <i className="material-icons">
-                                    my_location
+                                    {iconResolverBasedOnError}
                                 </i>
                             </Button>
                             </span>
