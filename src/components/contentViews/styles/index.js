@@ -30,6 +30,12 @@ export const offPositionStyling = (seatsCount) => {
     }
 };
 
+export const reservationForm =  {
+    display: 'flex',
+    flexFlow: 'column nowrap',
+    margin: '0 auto'
+};
+
 export const positionStyle = {
     position: 'relative',
     display: 'flex',
