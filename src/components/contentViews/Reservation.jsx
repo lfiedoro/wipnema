@@ -1,41 +1,33 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropType from 'prop-types';
 import {reservationForm, selectedMovieStyle} from "./styles";
 import {dateFormatted, rowLetters, showTimeHourFormatted} from "./constants";
-import {SeatsSelectedContext} from "../contexts/SeatsSelectedContext";
 import Chip from "@material-ui/core/Chip";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import reservation from "../../api/reservation";
+import * as Yup from 'yup';
+import {Formik} from "formik";
 
-class Reservation extends React.Component {
+const Reservation = (props) => {
 
-    state = {
-        name: '',
-        email: ''
-    };
-
-    static contextType = SeatsSelectedContext;
+    const [isSubmitionCompleted, setSubmitionCompleted] = useState(false);
 
 
-    formattedDate = () => {
+    const formattedDate = () => {
         return (
             <h3 className={'gradientText'}>
-                {showTimeHourFormatted(this.props)} {dateFormatted(this.props)}
+                {showTimeHourFormatted(props)} {dateFormatted(props)}
             </h3>
         );
     };
 
-    onReservationSubmit = (event) => {
-        event.preventDefault();
-        this.props.onReservationSubmit({name: this.state.name, email: this.state.email})
-    };
 
-    seatsSelected = () => {
-        const {seatsSelected} = this.context;
-        return seatsSelected.map(seat => {
+    const seatsSelected = () => {
+        return props.seatsSelected.map(seat => {
             const seatId = `${rowLetters[seat.row]}${seat.column + 1}`;
             return (
                 <Chip
@@ -48,98 +40,152 @@ class Reservation extends React.Component {
         })
     };
 
-    seatsArray = () => {
+    const seatsArray = () => {
         return (
             <div className='seatsArray'>
-                {this.seatsSelected()}
+                {seatsSelected()}
             </div>
         )
     };
 
-    render() {
-        const {seatsSelected} = this.context;
-        return (
-            <div>
-                <div style={selectedMovieStyle(this.props)}>
-                    <div className='shader bottom poster'>
-                        <h2>{this.props.title}</h2>
-                    </div>
-                </div>
+    const baseProps = props;
+    return (
+        <>
+            <Formik
+                initialValues={{email: '', name: ''}}
+                onSubmit={async (values, {setSubmitting}) => {
 
-                <form
-                    onSubmit={this.onReservationSubmit}
-                    noValidate
-                    autoComplete="off"
-                    style={reservationForm}
-                >
-                    <h2 style={{marginBottom: '20px'}}>Reservation for</h2>
+                    setSubmitting(true);
 
-                    {this.formattedDate()}
+                    await reservation.post(`/`, {
+                        values,
+                        showtimeId: baseProps.id,
+                        seats: baseProps.seatsSelected
+                    })
+                        .then(res => {
+                            setSubmitionCompleted(true);
+                            console.log(res);
+                        })
+                        .catch(err => console.log(err))
+                }}
 
-                    <ExpansionPanel
-                        defaultExpanded={true}
-                        style={{marginBottom: '20px'}}
-                    >
-                        <ExpansionPanelSummary
-                            expandIcon={<i className="material-icons">
-                                expand_more
-                            </i>}
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
-                        >
-                            Selected seats:
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails classes={{root: 'cardBg'}}>
-                            {this.seatsArray(seatsSelected)}
-                        </ExpansionPanelDetails>
-                    </ExpansionPanel>
+                validationSchema={Yup.object().shape({
+                    email: Yup.string()
+                        .email()
+                        .required('Required'),
+                    name: Yup.string()
+                        .required('Required')
+                })}
+            >
 
-                    <TextField
-                        required
-                        fullWidth={true}
-                        autoComplete={'name'}
-                        style={{marginBottom: '20px'}}
-                        id="name"
-                        label="Name"
-                        value={this.state.name}
-                        variant={"outlined"}
-                        onChange={e => this.setState({name: e.target.value})}
-                    />
+                {(props) => {
+                    const {
+                        values,
+                        touched,
+                        errors,
+                        isValid,
+                        dirty,
+                        isSubmitting,
+                        handleChange,
+                        handleBlur,
+                        handleSubmit,
+                    } = props;
 
-                    <TextField
-                        required
-                        fullWidth={true}
-                        autoComplete={'email'}
-                        style={{marginBottom: '20px'}}
-                        type='email'
-                        id="email"
-                        label="E-mail"
-                        value={this.state.email}
-                        variant={"outlined"}
-                        onChange={e => this.setState({email: e.target.value})}
-                    />
+                    return (
+                        <div>
+                            <div style={selectedMovieStyle(baseProps)}>
+                                <div className='shader bottom poster'>
+                                    <h2>{baseProps.title}</h2>
+                                </div>
+                            </div>
 
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        type='submit'
-                    >
-                        <i className="material-icons" style={{marginRight:'5px'}}>
-                            event_seat
-                        </i>
-                        Reserve your seats
-                    </Button>
-                </form>
-            </div>
-        );
-    }
-}
+                            <form
+                                onSubmit={handleSubmit}
+                                noValidate
+                                autoComplete="off"
+                                style={reservationForm}
+                            >
+                                <h2 style={{marginBottom: '20px'}}>Reservation for</h2>
+                                {formattedDate()}
+                                <ExpansionPanel
+                                    defaultExpanded={true}
+                                    style={{marginBottom: '20px'}}
+                                >
+                                    <ExpansionPanelSummary
+                                        expandIcon={
+                                            <i className="material-icons">
+                                                expand_more
+                                            </i>
+                                        }
+                                        aria-controls="panel1a-content"
+                                        id="panel1a-header"
+                                    >
+                                        Selected seats:
+                                    </ExpansionPanelSummary>
+                                    <ExpansionPanelDetails classes={{root: 'cardBg'}}>
+                                        {seatsArray(props.seatsSelected)}
+                                    </ExpansionPanelDetails>
+                                </ExpansionPanel>
+
+                                <TextField
+                                    required
+                                    error={errors.name && touched.name}
+                                    fullWidth={true}
+                                    autoComplete={'name'}
+                                    style={{marginBottom: '20px'}}
+                                    id="name"
+                                    label="Name"
+                                    value={values.name}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    helperText={(errors.name && touched.name) && errors.name}
+                                    variant={"outlined"}
+                                />
+
+                                <TextField
+                                    required
+                                    fullWidth={true}
+                                    error={errors.email && touched.email}
+                                    autoComplete={'email'}
+                                    style={{marginBottom: '20px'}}
+                                    id="email"
+                                    label="E-mail"
+                                    value={values.email}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    helperText={(errors.email && touched.email) && errors.email}
+                                    variant={"outlined"}
+                                />
+
+                                <Button
+                                    variant="contained"
+                                    size={"large"}
+                                    color="secondary"
+                                    type='submit'
+                                    style={{marginBottom: '20px'}}
+                                    disabled={!dirty || !isValid || isSubmitting}
+                                >
+                                    <i className="material-icons" style={{marginRight: '5px'}}>
+                                        event_seat
+                                    </i>
+                                    Reserve your seats
+                                </Button>
+                            </form>
+                        </div>
+                    );
+                }}
+            </Formik>
+        </>
+    )
+        ;
+};
+
 
 Reservation.propTypes = {
     title: PropType.string,
     date: PropType.string,
     id: PropType.string,
-    onReservationSubmit: PropType.func
+    seatsSelected: PropType.array
 };
 
 export default Reservation;

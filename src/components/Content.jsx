@@ -12,6 +12,8 @@ class Content extends Component {
     static contextType = SeatsSelectedContext;
 
     contentViews = () => {
+        const {seatsSelected} = this.context;
+
         if (this.props.pageView) {
             switch (this.props.pageView) {
                 case 0b0001:
@@ -47,7 +49,7 @@ class Content extends Component {
                             date={this.props.showtimeDate}
                             id={this.props.showtimeId}
                             poster={this.props.poster}
-                            onReservationSubmit={this.props.onReservationSubmit}
+                            seatsSelected={seatsSelected}
                         />
                     );
                 default:
@@ -61,7 +63,7 @@ class Content extends Component {
         return (
             <div style={positionStyle} className='landscapeMob'>
                 <div className="shader"/>
-                <div className='maxHeight' style={contentWrapper(seatsSelected.length)}>
+                <div className='maxHeight' style={contentWrapper(seatsSelected.length, this.props.pageView)}>
                     {this.contentViews()}
                 </div>
                 <div className="shader bottom"/>
@@ -86,7 +88,6 @@ Content.propTypes = {
 
     onMovieSelect: PropType.func,
     onShowtimeSelect: PropType.func,
-    onReservationSubmit: PropType.func
 };
 
 export default Content;

@@ -107,18 +107,6 @@ class App extends Component {
     };
 
 
-    onReservationSubmit = async customer => {
-        this.setState({customer});
-
-        await reservation.post(`/`, {
-            customer,
-            showtimeId: this.state.showtimeId,
-            seats: this.state.seatsSelected
-        })
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
-    };
-
     onSeatsConfirmation = () => {
         this.setState({
             pageView: 0b00001000
@@ -147,7 +135,6 @@ class App extends Component {
                             poster={this.state.poster}
                             onMovieSelect={this.onMovieSelect}
                             onShowtimeSelect={this.onShowtimeSelect}
-                            onReservationSubmit={this.onReservationSubmit}
                         />
                     </div>
                     <SeatSelectedContainer

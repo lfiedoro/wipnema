@@ -30,7 +30,7 @@ export const offPositionStyling = (seatsCount) => {
     }
 };
 
-export const reservationForm =  {
+export const reservationForm = {
     display: 'flex',
     flexFlow: 'column nowrap',
     margin: '0 auto'
@@ -60,7 +60,7 @@ export const loadingOverlay = {
     height: '90%'
 };
 
-export const contentWrapper = (selectedSeatsCount) => {
+export const contentWrapper = (selectedSeatsCount, pageView) => {
     const landscapeView = (window.innerHeight <= 420 && (window.innerWidth > 419 && window.innerWidth < 834)) ? '75px' : '55px';
 
     return {
@@ -70,7 +70,7 @@ export const contentWrapper = (selectedSeatsCount) => {
         zIndex: 2,
         boxSizing: 'border-box',
         overflowY: 'auto',
-        marginBottom: selectedSeatsCount ? landscapeView : 'unset'
+        marginBottom: selectedSeatsCount && (pageView !== 0b1000) ? landscapeView : 'unset'
     }
 };
 
