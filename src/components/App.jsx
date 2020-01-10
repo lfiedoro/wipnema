@@ -3,8 +3,8 @@ import React, {Component} from 'react';
 import showtimes from '../api/showtimes';
 import reservation from '../api/reservation';
 
-import SearchBar from './SearchBar';
-import Content from "./Content";
+import SearchBar from './contentViews/SearchBar';
+import Content from "./contentViews/Content";
 import SeatSelectedContainer from "./contentViews/SeatSelectedContainer";
 import SeatsSelectedContextProvider from "./contexts/SeatsSelectedContext";
 import LoadingOverlay from "./contentViews/LoadingOverlay";

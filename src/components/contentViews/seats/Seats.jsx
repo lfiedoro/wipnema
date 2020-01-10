@@ -1,9 +1,9 @@
 import React from 'react';
 import PropType from 'prop-types';
-import {overflowDiv, rowStyles, selectedMovieStyle} from "./styles";
-import {dateFormatted, rowLetters, showTimeHourFormatted} from "./constants";
+import {overflowDiv, rowStyles, selectedMovieStyle} from "../../../styles";
+import {dateFormatted, rowLetters, showTimeHourFormatted} from "../constants";
 import IndividualSeat from "./IndividualSeat";
-import {SeatsSelectedContext} from "../contexts/SeatsSelectedContext";
+import {SeatsSelectedContext} from "../../contexts/SeatsSelectedContext";
 
 class Seats extends React.Component {
 

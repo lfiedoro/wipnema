@@ -5,9 +5,9 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
-import {formStyles} from "./contentViews/styles";
+import {formStyles} from "../../styles";
 import Tooltip from "@material-ui/core/Tooltip";
-import {SeatsSelectedContext} from "./contexts/SeatsSelectedContext";
+import {SeatsSelectedContext} from "../contexts/SeatsSelectedContext";
 
 class SearchBar extends React.Component {
 

@@ -2,7 +2,7 @@ import React from "react";
 import Showtime from "./Showtime";
 
 
-const ShowTimeDateView = (props) => {
+const ShowtimeDateView = (props) => {
     const showtimeHours = props.showtimes.map(showtime => {
         return (
             <Showtime
@@ -28,4 +28,4 @@ const ShowTimeDateView = (props) => {
     );
 };
 
-export default ShowTimeDateView;
+export default ShowtimeDateView;

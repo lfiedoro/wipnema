@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import PropType from 'prop-types';
-import {reservationForm, selectedMovieStyle} from "./styles";
-import {dateFormatted, rowLetters, showTimeHourFormatted} from "./constants";
+import {reservationForm, selectedMovieStyle} from "../../../styles";
+import {dateFormatted, rowLetters, showTimeHourFormatted} from "../constants";
 import Chip from "@material-ui/core/Chip";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import reservation from "../../api/reservation";
+import reservation from "../../../api/reservation";
 import * as Yup from 'yup';
 import {Formik} from "formik";
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'typeface-roboto';
-import ThemeWrapper from "./components/material/ThemeWrapper";
+import ThemeWrapper from "./theme/ThemeWrapper";
 
 ReactDOM.render(
     <ThemeWrapper/>,

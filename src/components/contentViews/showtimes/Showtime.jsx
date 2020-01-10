@@ -1,7 +1,7 @@
 import React from 'react';
 import PropType from 'prop-types';
 import Chip from "@material-ui/core/Chip";
-import {showTimeHourFormatted} from "./constants";
+import {showTimeHourFormatted} from "../constants";
 
 class Showtime extends React.Component {
 

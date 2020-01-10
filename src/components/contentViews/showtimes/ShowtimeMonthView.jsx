@@ -3,8 +3,8 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
-import ShowTimeDateView from "./ShowTimeDateView";
-import {monthNames} from "./constants";
+import ShowtimeDateView from "./ShowtimeDateView";
+import {monthNames} from "../constants";
 
 const ShowTimeMonthView = (props) => {
 
@@ -14,7 +14,7 @@ const ShowTimeMonthView = (props) => {
 
         const filteredShowtimes = props.showtimes.filter(showtime => new Date(showtime.start_at).getDate() === date);
         return (
-            <ShowTimeDateView
+            <ShowtimeDateView
                 key={date}
                 showtimes={filteredShowtimes}
                 date={date}

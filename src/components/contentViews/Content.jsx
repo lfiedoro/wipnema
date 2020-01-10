@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import PropType from 'prop-types';
 
-import MovieList from "./contentViews/MovieList";
-import ShowtimeList from "./contentViews/ShowtimeList";
-import Seats from "./contentViews/Seats";
-import Reservation from "./contentViews/Reservation";
-import {contentWrapper, positionStyle} from "./contentViews/styles";
-import {SeatsSelectedContext} from "./contexts/SeatsSelectedContext";
+import MovieList from "./movie/MovieList";
+import ShowtimeList from "./showtimes/ShowtimeList";
+import Seats from "./seats/Seats";
+import Reservation from "./reservation/Reservation";
+import {contentWrapper, positionStyle} from "../../styles";
+import {SeatsSelectedContext} from "../contexts/SeatsSelectedContext";
 
 class Content extends Component {
     static contextType = SeatsSelectedContext;

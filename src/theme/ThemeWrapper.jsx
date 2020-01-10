@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core";
-import App from "../App";
+import App from "../components/App";
 
 class ThemeWrapper extends Component {
     theme = createMuiTheme({

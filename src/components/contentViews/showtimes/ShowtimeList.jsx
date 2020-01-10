@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ShowTimeMonthView from "./ShowtimeMonthView";
-import {selectedMovieStyle} from "./styles";
+import {selectedMovieStyle} from "../../../styles";
 
 const ShowtimeList = (props) => {
     const _ = require('lodash');

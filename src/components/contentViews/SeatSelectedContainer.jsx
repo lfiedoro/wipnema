@@ -5,7 +5,7 @@ import PropType from "prop-types";
 import {rowLetters} from "./constants";
 import Chip from "@material-ui/core/Chip";
 import IconButton from "@material-ui/core/IconButton";
-import {offPositionStyling} from "./styles";
+import {offPositionStyling} from "../../styles";
 import {SeatsSelectedContext} from "../contexts/SeatsSelectedContext";
 
 class SeatSelectedContainer extends Component {

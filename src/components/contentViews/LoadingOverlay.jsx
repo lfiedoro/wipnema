@@ -1,5 +1,5 @@
 import React from "react";
-import {loadingOverlay} from "./styles";
+import {loadingOverlay} from "../../styles";
 import {loading} from "./constants";
 
 const LoadingOverlay = (props) => {

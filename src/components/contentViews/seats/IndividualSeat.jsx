@@ -1,6 +1,6 @@
 import React from "react";
 import Tooltip from "@material-ui/core/Tooltip";
-import {rowLetters} from "./constants";
+import {rowLetters} from "../constants";
 import PropType from "prop-types";
 
 const IndividualSeat = (props) => {
