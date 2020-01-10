@@ -1,0 +1,387 @@
+@import "reset";
+@import "mixins";
+
+$theme-blue-accent: rgba(126, 193, 209, 1);
+$theme-blue-darker: rgb(77, 133, 149);
+$theme-dark: rgba(24, 30, 37, 1);
+$theme-gray: rgba(39, 41, 50, 1);
+$theme-gray-light: rgb(197, 204, 198);
+$theme-light: rgba(244, 247, 190, 1);
+$theme-green-accent: rgba(229, 247, 125, 1);
+$theme-green-darker: rgb(186, 200, 103);
+$white: rgba(255, 255, 255, 1);
+
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  min-width: 320px;
+}
+
+body {
+  background: $theme-dark;
+  color: $white;
+  font-size: 14pt;
+  font-family: Roboto, sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+  @include no-select;
+}
+
+
+.shader {
+  @include gradient($theme-dark, rgba(0, 0, 0, 0), vertical);
+  width: 100%;
+  height: 40px;
+  position: absolute;
+  @include position(0, 0);
+  z-index: 3;
+  pointer-events: none;
+
+  &.bottom {
+    @include positionb(-5px, 0);
+    @include gradient(rgba(0, 0, 0, 0), $theme-dark, vertical);
+
+    top: unset;
+  }
+
+  &.poster {
+    @include positionb(0, 0);
+    height: 80px;
+    display: flex;
+    padding: 0 10px;
+    box-sizing: border-box;
+    justify-content: center;
+    flex-flow: column nowrap;
+    border-bottom: $theme-blue-accent solid 2px;
+
+    h2 {
+      font-size: 1.2rem;
+    }
+
+    h3 {
+      font-size: 1rem;
+    }
+  }
+}
+
+.gradientText {
+  display: block;
+  font-weight: bold;
+  font-size: 2rem;
+  background: linear-gradient(to right, $theme-blue-accent 0%, $theme-green-accent 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+%flex-center {
+  justify-content: center;
+  align-items: flex-start;
+  align-content: center;
+}
+
+
+#wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+
+  header {
+    height: 15%;
+    min-height: 90px;
+    max-height: 90px;
+    margin: 0 auto;
+    padding: 20px 20px;
+    @include breakpoint-mobile {
+      padding: 10px 20px;
+      min-height: unset;
+      max-height: 10vh;
+      height: 10vh;
+    }
+    @include breakpoint-mobile-land {
+      min-height: 60px;
+    }
+    box-sizing: border-box;
+    @include gradient($theme-dark, $theme-gray, vertical);
+    display: flex;
+    flex-flow: column nowrap;
+    border-bottom: $theme-blue-accent solid 2px;
+    @extend %flex-center;
+    width: 100vw;
+
+    > div {
+      @include breakpoint-mobile {
+        width: 100vw;
+      }
+      @include breakpoint-tablet-por {
+        width: 100vw;
+      }
+      width: 70%;
+      margin: 0 auto;
+    }
+
+
+    h1 {
+      color: $theme-blue-accent;
+      font-size: 1.5rem;
+
+      i {
+        position: relative;
+        top: 3px;
+      }
+
+      span {
+        color: $white;
+      }
+    }
+
+    h2 {
+      font-size: .7rem;
+      color: $theme-blue-darker;
+    }
+
+  }
+
+  #main-wrapper {
+    position: relative;
+    height: 100%;
+    margin: 0 auto;
+    width: 100%;
+    @include breakpoint-desktop {
+      width: 70%;
+    }
+    @include breakpoint-mobile {
+      height: 90vh;
+    }
+
+    main {
+      position: relative;
+      padding: 20px 10px;
+      margin: 0 auto;
+      box-sizing: border-box;
+      height: 100%;
+      @include breakpoint-mobile {
+        padding: 5px 0;
+      }
+
+      .selectedSeatContainer {
+        border-top: $theme-green-accent solid 2px;
+        color: $white;
+        padding: 5px;
+        min-height: 65px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        align-content: center;
+        box-sizing: border-box;
+        @include box-shadow(0, 0, 40px, $theme-gray);
+        @include gradient($theme-gray, $theme-dark, vertical);
+        @include box(100%, 100%);
+
+        > div:first-of-type {
+          max-width: 70%;
+        }
+
+        > div:first-of-type > :first-child {
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: flex-start;
+          align-items: center;
+          align-content: center;
+        }
+
+      }
+
+      #seatsTable {
+        button {
+          cursor: pointer;
+          min-width: 35px;
+          padding: 10px;
+          border: 0;
+          border-radius: 10px;
+          background: $theme-blue-accent;
+          color: $theme-gray;
+          outline: 0;
+
+          &.selected {
+            background: $theme-green-darker;
+          }
+
+          &.disabled {
+            background: $theme-gray-light;
+            @include opacity(.7);
+          }
+
+        }
+      }
+
+      .animate {
+        @include transition(all .3s ease);
+      }
+
+      .landscapeMob {
+        @include breakpoint-desktop {
+          height: 85% !important;
+        }
+        @include breakpoint-mobile-land {
+          height: 80% !important;
+        }
+        @include breakpoint-tablet-por {
+          height: 83% !important;
+        }
+      }
+
+      .landscapeContainer {
+        bottom: 70px !important;
+        @include breakpoint-tablet-por {
+          bottom: 60px;
+        }
+        @include breakpoint-mobile {
+          bottom: 5px !important;
+        }
+        @include breakpoint-mobile-land {
+          bottom: 25px !important;
+        }
+      }
+
+      .landscapeContent {
+        @include breakpoint-mobile-land {
+          //margin-bottom: 75px !important;
+        }
+      }
+
+      .formClass {
+        @include breakpoint-mobile {
+          width: 95%;
+          margin: 0 auto;
+        }
+      }
+
+      .seatsArray {
+        display: flex;
+        margin: 5px 0;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+      }
+
+      .startImage {
+        margin: 20px auto;
+        @include breakpoint-mobile {
+          width: 70%;
+        }
+        width: 40%;
+      }
+
+      #root, #root > div, #root > div > div:first-of-type {
+        position: relative;
+        height: 100%;
+      }
+
+      .card {
+        @include breakpoint-desktop {
+          min-height: 70px;
+        }
+        @include breakpoint-tablet-por {
+          min-height: 70px;
+        }
+      }
+
+      .cardBg {
+        background: $theme-gray;
+        flex-flow: column nowrap;
+        padding: 8px 10px 24px;
+
+        &.movies {
+          flex-flow: unset;
+        }
+      }
+
+      .cardBgHeader {
+        background: $theme-blue-darker;
+      }
+
+      .dayCard {
+        display: flex;
+        flex-flow: row nowrap;
+        margin-bottom: 10px;
+
+        div {
+          display: flex;
+          @extend %flex-center;
+          box-sizing: border-box;
+
+          &.day {
+            font-size: 3rem;
+            color: $theme-green-accent;
+            font-weight: bold;
+            padding-right: 10px;
+            border-right: $theme-green-accent solid 1px;
+            margin-right: 5px;
+            min-width: 65px;
+          }
+
+          &.hours {
+            justify-content: flex-start;
+            flex-flow: row wrap;
+
+            > div {
+              margin: 4px;
+              align-items: center;
+            }
+          }
+        }
+      }
+
+      .maxHeight {
+        //max-height: 75vh;
+        position: relative;
+        top: 3px;
+        @include breakpoint-mobile {
+          max-height: unset;
+        }
+
+        .moviesGrid {
+          display: flex;
+          width: 100%;
+          flex-flow: row wrap;
+          justify-content: flex-start;
+          align-items: flex-start;
+          align-content: flex-start;
+          @include breakpoint-mobile {
+            display: block;
+            flex-flow: unset;
+            justify-content: unset;
+            align-items: unset;
+            align-content: unset;
+          }
+
+          > div {
+            @include breakpoint-desktop {
+              margin: 5px !important;
+              flex-basis: 30%;
+            }
+            @include breakpoint-tablet-por {
+              margin: 5px !important;
+              flex-basis: 30%;
+            }
+          }
+        }
+      }
+
+      @include breakpoint-mobile {
+        width: 100vw;
+      }
+    }
+  }
+
+
+}
+
