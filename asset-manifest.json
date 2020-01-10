@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/wipnema/static/css/main.80c0a703.chunk.css",
+    "main.js": "/wipnema/static/js/main.cbb01de5.chunk.js",
+    "main.js.map": "/wipnema/static/js/main.cbb01de5.chunk.js.map",
+    "runtime-main.js": "/wipnema/static/js/runtime-main.49e13b53.js",
+    "runtime-main.js.map": "/wipnema/static/js/runtime-main.49e13b53.js.map",
+    "static/css/2.30959183.chunk.css": "/wipnema/static/css/2.30959183.chunk.css",
+    "static/js/2.75a32e9c.chunk.js": "/wipnema/static/js/2.75a32e9c.chunk.js",
+    "static/js/2.75a32e9c.chunk.js.map": "/wipnema/static/js/2.75a32e9c.chunk.js.map",
+    "index.html": "/wipnema/index.html",
+    "precache-manifest.0fdd38576c542a1c29c538572d5d7d81.js": "/wipnema/precache-manifest.0fdd38576c542a1c29c538572d5d7d81.js",
+    "service-worker.js": "/wipnema/service-worker.js",
+    "static/css/2.30959183.chunk.css.map": "/wipnema/static/css/2.30959183.chunk.css.map",
+    "static/css/main.80c0a703.chunk.css.map": "/wipnema/static/css/main.80c0a703.chunk.css.map",
+    "static/js/2.75a32e9c.chunk.js.LICENSE": "/wipnema/static/js/2.75a32e9c.chunk.js.LICENSE",
+    "static/media/index.css": "/wipnema/static/media/roboto-latin-900italic.ebf6d164.woff2"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.49e13b53.js",
+    "static/css/2.30959183.chunk.css",
+    "static/js/2.75a32e9c.chunk.js",
+    "static/css/main.80c0a703.chunk.css",
+    "static/js/main.cbb01de5.chunk.js"
+  ]
+}
